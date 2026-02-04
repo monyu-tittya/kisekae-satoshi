@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kisekae App</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for premium feel -->
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Emotion Toggle Button -->
+        <button id="emotion-btn" class="emotion-btn" aria-label="Change Emotion">😊</button>
+        <!-- Background Color Picker -->
+        <input type="color" id="bg-color-picker" style="visibility: hidden; position: absolute; top: 20px; left: 20px;">
+        <button id="bg-color-btn" class="emotion-btn" style="right: auto; left: 20px;"
+            aria-label="Change Background">🎨</button>
+
+        <!-- Character Stage -->
+        <div class="stage">
+            <div class="character-container">
+                <!-- Layers (Z-Index Ordered) -->
+                <!-- 1. Background -->
+                <img src="" alt="Background" class="layer layer-background" id="layer-background"
+                    style="display: none;">
+                <!-- 2. Back (Wings/Weapon) -->
+                <img src="" alt="Back Gear" class="layer layer-back" id="layer-back" style="display: none;">
+                <!-- 3. Base -->
+                <img src="image/base.PNG" alt="Base Character" class="layer layer-base">
+                <!-- 4. Underwear -->
+                <img src="" alt="Underwear" class="layer layer-underwear" id="layer-underwear" style="display: none;">
+                <!-- 5. Socks -->
+                <img src="" alt="Socks" class="layer layer-socks" id="layer-socks" style="display: none;">
+                <!-- 6. Pants/Bottoms -->
+                <img src="" alt="Pants" class="layer layer-pants" id="layer-pants" style="display: none;">
+                <!-- 7. Shirt/Tops -->
+                <img src="" alt="Shirt" class="layer layer-shirt" id="layer-shirt" style="display: none;">
+                <!-- 8. Gloves -->
+                <img src="" alt="Gloves" class="layer layer-gloves" id="layer-gloves" style="display: none;">
+                <!-- 9. Shoes -->
+                <img src="" alt="Shoes" class="layer layer-shoes" id="layer-shoes" style="display: none;">
+                <!-- 10. Coat/Outer -->
+                <img src="" alt="Coat" class="layer layer-coat" id="layer-coat" style="display: none;">
+                <!-- 11. Necklace -->
+                <img src="" alt="Necklace" class="layer layer-necklace" id="layer-necklace" style="display: none;">
+                <!-- 12. Earrings -->
+                <img src="" alt="Earrings" class="layer layer-earrings" id="layer-earrings" style="display: none;">
+                <!-- 13. Mouth (Expression) -->
+                <img src="image/mouth_joy.png" alt="Mouth" class="layer layer-mouth" id="layer-mouth">
+                <!-- 14. Eyes (Expression/Blink) -->
+                <img src="image/eye_joy.png" alt="Eyes" class="layer layer-eyes" id="layer-eyes">
+                <!-- 15. Hat -->
+                <img src="" alt="Hat" class="layer layer-hat" id="layer-hat" style="display: none;">
+
+                <!-- Speech Bubble -->
+                <div class="speech-bubble" id="speech-bubble">
+                    <span id="speech-text">こんにちは！</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Costume Menu -->
+        <div class="menu-container">
+            <!-- Category Tabs -->
+            <div class="category-tabs" id="category-tabs">
+                <!-- Tabs injected by JS -->
+            </div>
+
+            <!-- Items Area -->
+            <div class="items-area">
+                <button class="nav-btn prev-btn" id="prev-btn">◀</button>
+                <div class="costume-grid" id="costume-grid">
+                    <!-- Items injected by JS -->
+                </div>
+                <button class="nav-btn next-btn" id="next-btn">▶</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

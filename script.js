@@ -1,0 +1,239 @@
+// Assets configuration
+// Categories corresponding to layer IDs: layer-{category}
+const categories = [
+    { id: 'shirt', label: 'トップス' },
+    { id: 'pants', label: 'ボトムス' },
+    { id: 'socks', label: '靴下' },
+    { id: 'shoes', label: '靴' },
+    { id: 'coat', label: 'アウター' },
+    { id: 'underwear', label: 'インナー' },
+    { id: 'hat', label: '帽子' },
+    { id: 'gloves', label: '腕飾り' },
+    { id: 'necklace', label: '首飾り' },
+    { id: 'earrings', label: '耳飾り' },
+    { id: 'back', label: '背中' },
+    { id: 'background', label: '背景' }
+];
+
+// Sample wardrobe data (Using placeholders or re-using existing assets for demo)
+const wardrobe = {
+    shirt: [
+        { id: 'shirt1', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' }, // Reusing casual for demo
+        { id: 'shirt2', src: 'image/costume_dress.png', thumb: 'image/costume_dress.png', message: 'ドレスみたいな服！' },
+    ],
+    pants: [
+        // For demo purposes, using same images. In real usage, these would be separate 'pants' transparent pngs.
+        { id: 'pants1', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'スカート履いたよ' },
+    ],
+    shoes: [],
+    socks: [],
+    coat: [],
+    underwear: [],
+    hat: [],
+    gloves: [],
+    necklace: [],
+    earrings: [],
+    back: [],
+    background: []
+};
+
+// Emotion Config
+const emotions = [
+    { name: 'joy', eyeSrc: 'image/eye_joy.png', mouthSrc: 'image/mouth_joy.png', icon: '😊' },
+    { name: 'anger', eyeSrc: 'image/eye_anger.png', mouthSrc: 'image/mouth_anger.png', icon: '😠' },
+    { name: 'sorrow', eyeSrc: 'image/eye_sorrow.png', mouthSrc: 'image/mouth_sorrow.png', icon: '😢' },
+];
+
+// State
+let currentOutfit = {}; // { shirt: 'shirt1', pants: null, ... }
+let currentCategory = 'shirt'; // Default tab
+let currentEmotionIndex = 0;
+let currentPage = 0;
+const itemsPerPage = 6;
+let blinkInterval;
+
+// DOM Elements
+const stageLayers = {}; // Cache for layer elements
+const speechBubble = document.getElementById('speech-bubble');
+const speechText = document.getElementById('speech-text');
+const emotionBtn = document.getElementById('emotion-btn');
+const costumeGrid = document.getElementById('costume-grid');
+const tabsContainer = document.getElementById('category-tabs');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const mouthLayer = document.getElementById('layer-mouth'); // Specific access for emotion
+const eyeLayer = document.getElementById('layer-eyes');   // Specific access for emotion
+
+// Initialization
+function init() {
+    // Cache layer elements
+    categories.forEach(cat => {
+        stageLayers[cat.id] = document.getElementById(`layer-${cat.id}`);
+    });
+
+    renderTabs();
+    renderMenu();
+    startBlinking();
+    updatePaginationButtons();
+
+    // Set initial face
+    updateFace();
+}
+
+// Blinking Logic
+function startBlinking() {
+    const loop = () => {
+        const delay = Math.random() * 3000 + 3000;
+        setTimeout(() => {
+            blink();
+            loop();
+        }, delay);
+    };
+    loop();
+}
+
+function blink() {
+    const currentEmotion = emotions[currentEmotionIndex];
+    eyeLayer.src = 'image/eye_blink.png';
+    setTimeout(() => {
+        eyeLayer.src = currentEmotion.eyeSrc;
+    }, 150);
+}
+
+// Emotion Logic
+emotionBtn.addEventListener('click', () => {
+    currentEmotionIndex = (currentEmotionIndex + 1) % emotions.length;
+    updateFace();
+    emotionBtn.textContent = emotions[currentEmotionIndex].icon;
+    showSpeech(`気分は${emotions[currentEmotionIndex].icon}だよ！`);
+});
+
+// Background Color Logic
+const bgColorBtn = document.getElementById('bg-color-btn');
+const bgColorPicker = document.getElementById('bg-color-picker');
+
+bgColorBtn.addEventListener('click', () => {
+    bgColorPicker.click();
+});
+
+bgColorPicker.addEventListener('input', (e) => {
+    document.body.style.background = e.target.value;
+});
+
+function updateFace() {
+    const emotion = emotions[currentEmotionIndex];
+    eyeLayer.src = emotion.eyeSrc;
+    mouthLayer.src = emotion.mouthSrc;
+}
+
+// Tab Logic
+function renderTabs() {
+    tabsContainer.innerHTML = '';
+    categories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = `tab-btn ${currentCategory === cat.id ? 'active' : ''}`;
+        btn.textContent = cat.label;
+        btn.onclick = () => switchTab(cat.id);
+        tabsContainer.appendChild(btn);
+    });
+}
+
+function switchTab(categoryId) {
+    currentCategory = categoryId;
+    currentPage = 0;
+    renderTabs(); // Update active state
+    renderMenu();
+    updatePaginationButtons();
+}
+
+// Menu & Pagination
+function renderMenu() {
+    costumeGrid.innerHTML = '';
+
+    // Get items for current category, default to empty array
+    const items = wardrobe[currentCategory] || [];
+
+    const start = currentPage * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageItems = items.slice(start, end);
+
+    // If no items, maybe show a placeholder text?
+    if (items.length === 0) {
+        costumeGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; font-size: 12px; color: #888;">アイテムがありません</div>';
+        return;
+    }
+
+    pageItems.forEach(item => {
+        const div = document.createElement('div');
+        const isSelected = currentOutfit[currentCategory] === item.id;
+        div.className = `costume-item ${isSelected ? 'selected' : ''}`;
+        div.onclick = () => toggleItem(item);
+
+        const img = document.createElement('img');
+        img.src = item.thumb;
+        div.appendChild(img);
+
+        costumeGrid.appendChild(div);
+    });
+}
+
+function toggleItem(item) {
+    const isAlreadyEquipped = currentOutfit[currentCategory] === item.id;
+    const layer = stageLayers[currentCategory];
+
+    if (isAlreadyEquipped) {
+        // Unequip
+        delete currentOutfit[currentCategory];
+        layer.src = '';
+        layer.style.display = 'none';
+        showSpeech('脱いだよ！');
+    } else {
+        // Equip
+        currentOutfit[currentCategory] = item.id;
+        layer.src = item.src;
+        layer.style.display = 'block';
+        showSpeech(item.message || '着替えたよ！');
+    }
+
+    renderMenu(); // Re-render to update border selection
+}
+
+// Pagination Controls
+prevBtn.addEventListener('click', () => {
+    if (currentPage > 0) {
+        currentPage--;
+        renderMenu();
+        updatePaginationButtons();
+    }
+});
+
+nextBtn.addEventListener('click', () => {
+    const items = wardrobe[currentCategory] || [];
+    if ((currentPage + 1) * itemsPerPage < items.length) {
+        currentPage++;
+        renderMenu();
+        updatePaginationButtons();
+    }
+});
+
+function updatePaginationButtons() {
+    const items = wardrobe[currentCategory] || [];
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = (currentPage + 1) * itemsPerPage >= items.length;
+}
+
+// Speech Bubble
+let speechTimeout;
+function showSpeech(text) {
+    speechText.textContent = text;
+    speechBubble.classList.add('active');
+
+    if (speechTimeout) clearTimeout(speechTimeout);
+
+    speechTimeout = setTimeout(() => {
+        speechBubble.classList.remove('active');
+    }, 2000);
+}
+
+// Start
+init();
