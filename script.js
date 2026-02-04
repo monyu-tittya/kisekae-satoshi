@@ -18,8 +18,12 @@ const categories = [
 // Sample wardrobe data (Using placeholders or re-using existing assets for demo)
 const wardrobe = {
     shirt: [
-        { id: 'shirt1', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' }, // Reusing casual for demo
-        { id: 'shirt2', src: 'image/costume_dress.png', thumb: 'image/costume_dress.png', message: 'ドレスみたいな服！' },
+        { id: 'shirt1', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
+        { id: 'shirt2', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
+        { id: 'shirt3', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
+        { id: 'shirt4', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
+        { id: 'shirt5', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
+        { id: 'shirt6', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' }
     ],
     pants: [
         // For demo purposes, using same images. In real usage, these would be separate 'pants' transparent pngs.
@@ -42,6 +46,7 @@ const emotions = [
     { name: 'joy', eyeSrc: 'image/eye_joy.png', mouthSrc: 'image/mouth_joy.png', icon: '😊' },
     { name: 'anger', eyeSrc: 'image/eye_anger.png', mouthSrc: 'image/mouth_anger.png', icon: '😠' },
     { name: 'sorrow', eyeSrc: 'image/eye_sorrow.png', mouthSrc: 'image/mouth_sorrow.png', icon: '😢' },
+    { name: 'sleepy', eyeSrc: 'image/eye_blink.png', mouthSrc: 'image/mouth_joy.png', icon: '😴' }
 ];
 
 // State
@@ -49,7 +54,7 @@ let currentOutfit = {}; // { shirt: 'shirt1', pants: null, ... }
 let currentCategory = 'shirt'; // Default tab
 let currentEmotionIndex = 0;
 let currentPage = 0;
-const itemsPerPage = 6;
+const itemsPerPage = 3;
 let blinkInterval;
 
 // DOM Elements
@@ -64,12 +69,30 @@ const nextBtn = document.getElementById('next-btn');
 const mouthLayer = document.getElementById('layer-mouth'); // Specific access for emotion
 const eyeLayer = document.getElementById('layer-eyes');   // Specific access for emotion
 
+// Local Storage Key
+const STORAGE_KEY = 'kisekae_outfit';
+
 // Initialization
 function init() {
     // Cache layer elements
     categories.forEach(cat => {
         stageLayers[cat.id] = document.getElementById(`layer-${cat.id}`);
     });
+
+    // Load saved outfit or set default
+    const savedOutfit = loadOutfit();
+    if (savedOutfit) {
+        currentOutfit = savedOutfit;
+    } else {
+        // Default Outfit
+        currentOutfit = {
+            shirt: 'shirt1',
+            pants: 'pants1'
+        };
+    }
+
+    // Apply Outfit to Layers
+    applyOutfit();
 
     renderTabs();
     renderMenu();
@@ -79,6 +102,39 @@ function init() {
     // Set initial face
     updateFace();
 }
+
+function loadOutfit() {
+    try {
+        const json = localStorage.getItem(STORAGE_KEY);
+        return json ? JSON.parse(json) : null;
+    } catch (e) {
+        console.error('Failed to load outfit', e);
+        return null;
+    }
+}
+
+function saveOutfit() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(currentOutfit));
+    } catch (e) {
+        console.error('Failed to save outfit', e);
+    }
+}
+
+function applyOutfit() {
+    Object.keys(currentOutfit).forEach(catId => {
+        const itemId = currentOutfit[catId];
+        const categoryItems = wardrobe[catId];
+        // Find item in wardrobe to get src
+        const item = categoryItems ? categoryItems.find(i => i.id === itemId) : null;
+
+        if (item && stageLayers[catId]) {
+            stageLayers[catId].src = item.src;
+            stageLayers[catId].style.display = 'block';
+        }
+    });
+}
+
 
 // Blinking Logic
 function startBlinking() {
@@ -114,9 +170,13 @@ const bgColorPicker = document.getElementById('bg-color-picker');
 
 bgColorBtn.addEventListener('click', () => {
     bgColorPicker.click();
-});
+}, false);
 
 bgColorPicker.addEventListener('input', (e) => {
+    document.body.style.background = e.target.value;
+});
+
+bgColorPicker.addEventListener('change', (e) => {
     document.body.style.background = e.target.value;
 });
 
@@ -196,6 +256,7 @@ function toggleItem(item) {
     }
 
     renderMenu(); // Re-render to update border selection
+    saveOutfit();
 }
 
 // Pagination Controls
