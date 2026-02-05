@@ -468,7 +468,8 @@ body.screenshot-mode .menu-container,
 body.screenshot-mode .emotion-btn,
 body.screenshot-mode .nav-btn,
 body.screenshot-mode #bg-color-btn,
-body.screenshot-mode #camera-btn {
+body.screenshot-mode #camera-btn,
+body.screenshot-mode #reset-btn {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.5s;

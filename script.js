@@ -20,41 +20,55 @@ const categories = [
 const wardrobe = {
     preset: [
         {
-            id: 'preset_maid',
-            label: 'メイドさん',
-            thumb: 'image/costume_maid.png', // Use existing thumb or dedicated one
-            message: 'お帰りなさいませ、ご主人様♪',
+            id: 'preset_normal',
+            label: 'いつもの',
+            thumb: 'image/normal_shirt.png', // Use existing thumb or dedicated one
+            message: 'やっぱりこれが落ち着く～',
             outfit: {
-                shirt: 'shirt2',
+                shirt: 'normal',
+                pants: 'normal',
+                shoes: 'normal'
             }
         },
         {
-            id: 'preset_casual',
-            label: 'いつもの',
-            thumb: 'image/costume_casual.png',
-            message: 'やっぱりこれが落ち着くね',
+            id: 'preset_bunny',
+            label: 'バニー',
+            thumb: 'image/bunny_underwear.png',
+            message: 'バニー！！！',
             outfit: {
-                shirt: 'shirt1',
+                underwear: 'bunny',
+                socks: 'bunny',
+                shoes: 'bunny',
+                hat: 'bunny',
+                gloves: 'bunny'
             }
         }
     ],
     shirt: [
-        { id: 'shirt1', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: '猫のビッグTシャツだ！お気に入り～' },
-        { id: 'shirt2', src: 'image/costume_maid.png', thumb: 'image/costume_maid.png', message: 'ちょっと恥ずかしい/////' },
-        { id: 'shirt3', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
-        { id: 'shirt4', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
-        { id: 'shirt5', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
-        { id: 'shirt6', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' }
+        { id: 'normal', src: 'image/normal_shirt.png', thumb: 'image/normal_shirt.png', message: 'やっぱこれだよね～' },
+        { id: 'nekoTshirts', src: 'image/nekoTshirts_shirt.png', thumb: 'image/nekoTshirts_shirt.png', message: '猫のビッグTシャツだ！お気に入り～' }
     ],
     pants: [
-        { id: 'pants1', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'スカート履いたよ' },
+        { id: 'normal', src: 'image/normal_pants.png', thumb: 'image/normal_pants.png', message: 'やっぱこれだよね～' }
     ],
-    shoes: [],
-    socks: [],
-    coat: [],
-    underwear: [],
-    hat: [],
-    gloves: [],
+    shoes: [
+        { id: 'normal', src: 'image/normal_shoes.png', thumb: 'image/normal_shoes.png', message: 'やっぱこれだよね～' },
+        { id: 'bunny', src: 'image/bunny_shoes.png', thumb: 'image/bunny_shoes.png', message: 'ツヤツヤの靴だ...' }
+    ],
+    socks: [
+        { id: 'bunny', src: 'image/bunny_socks.png', thumb: 'image/bunny_socks.png', message: 'ちょっと恥ずかしい...' }
+    ],
+    coat: [
+    ],
+    underwear: [
+        { id: 'bunny', src: 'image/bunny_underwear.png', thumb: 'image/bunny_underwear.png', message: 'ちょっと恥ずかしい...' }
+    ],
+    hat: [
+        { id: 'bunny', src: 'image/bunny_hat.png', thumb: 'image/bunny_hat.png', message: 'ウサギの耳…？' }
+    ],
+    gloves: [
+        { id: 'bunny', src: 'image/bunny_gloves.png', thumb: 'image/bunny_gloves.png', message: 'カフスと蝶ネクタイだ' }
+    ],
     necklace: [],
     earrings: [],
     back: [],
@@ -67,7 +81,7 @@ const emotions = [
     { name: 'anger', eyeSrc: 'image/eye_anger.png', mouthSrc: 'image/mouth_anger.png', icon: '😠' },
     { name: 'sorrow', eyeSrc: 'image/eye_sorrow.png', mouthSrc: 'image/mouth_sorrow.png', icon: '😢' },
     { name: 'surprise', eyeSrc: 'image/eye_surprise.png', mouthSrc: 'image/mouth_surprise.png', icon: '😮' },
-    { name: 'sleepy', eyeSrc: 'image/eye_blink.png', mouthSrc: 'image/mouth_joy.png', icon: '😴' }
+    { name: 'sleepy', eyeSrc: 'image/eye_blink.png', mouthSrc: 'image/mouth_surprise.png', icon: '😴' }
 ];
 
 // State
@@ -118,9 +132,14 @@ function init() {
         currentOutfit = savedOutfit;
     } else {
         // Default Outfit
-        currentOutfit = {
-            shirt: 'shirt1'
-        };
+        const defaultPreset = wardrobe.preset.find(p => p.id === 'preset_normal');
+        if (defaultPreset) {
+            currentOutfit = { ...defaultPreset.outfit, preset: defaultPreset.id };
+        } else {
+            currentOutfit = {
+                shirt: 'nekoTshirts'
+            };
+        }
     }
 
     // Apply Outfit to Layers
@@ -311,6 +330,35 @@ cameraBtn.addEventListener('click', (e) => {
     createBokehEffect();
 });
 
+// Remove All Logic
+const resetBtn = document.getElementById('reset-btn');
+resetBtn.addEventListener('click', () => {
+    if (confirm('本当に全部脱いじゃう？')) {
+        categories.forEach(cat => {
+            // Skip background
+            if (cat.id === 'background') return;
+
+            // Unequip
+            delete currentOutfit[cat.id];
+
+            // Remove preset status
+            delete currentOutfit.preset;
+
+            const layer = stageLayers[cat.id];
+            if (layer) {
+                layer.src = '';
+                layer.style.display = 'none';
+            }
+        });
+
+        // Face/Base remains (managed separately or static)
+        showSpeech('ひゃっ...///');
+        triggerSmokeEffect();
+        saveOutfit();
+        renderMenu();
+    }
+});
+
 function createBokehEffect() {
     const container = document.getElementById('shojo-effect');
     container.innerHTML = ''; // Clear existing
@@ -422,29 +470,49 @@ function renderMenu() {
 
 function toggleItem(item) {
     if (currentCategory === 'preset') {
-        // Preset Logic: Apply all items in the preset
         if (item.outfit) {
-            currentOutfit.preset = item.id;
+            // Save preset ID for highlighting
+            // We want to replace the entire outfit, effectively.
+            const newPresetId = item.id;
 
-            Object.keys(item.outfit).forEach(catId => {
-                const itemId = item.outfit[catId];
-                // Check if valid category
-                if (wardrobe[catId]) {
-                    currentOutfit[catId] = itemId;
+            // We need to iterate over ALL categories to ensure we unequip things not in the preset
+            categories.forEach(cat => {
+                // Skip 'preset' tab itself and 'background' (usually background persists unless specified?
+                // Let's assume background persists for now, or we can clear it if we want strict presets.
+                // User said "previous clothes remain", so likely refers to clothing.
+                if (cat.id === 'preset' || cat.id === 'background') return;
 
-                    // Update layer
-                    const catItem = wardrobe[catId].find(i => i.id === itemId);
-                    if (catItem && stageLayers[catId]) {
-                        stageLayers[catId].src = catItem.src;
-                        stageLayers[catId].style.display = 'block';
+                const newItemId = item.outfit[cat.id];
+                const layer = stageLayers[cat.id];
 
-                        // Animation
-                        stageLayers[catId].classList.remove('pop-in');
-                        void stageLayers[catId].offsetWidth;
-                        stageLayers[catId].classList.add('pop-in');
+                if (newItemId) {
+                    // Equip new item
+                    if (wardrobe[cat.id]) {
+                        // Check if valid item exists
+                        const catItem = wardrobe[cat.id].find(i => i.id === newItemId);
+                        if (catItem) {
+                            currentOutfit[cat.id] = newItemId;
+                            if (layer) {
+                                layer.src = catItem.src;
+                                layer.style.display = 'block';
+                                // Animation
+                                layer.classList.remove('pop-in');
+                                void layer.offsetWidth;
+                                layer.classList.add('pop-in');
+                            }
+                        }
+                    }
+                } else {
+                    // Unequip if not in preset
+                    delete currentOutfit[cat.id];
+                    if (layer) {
+                        layer.src = '';
+                        layer.style.display = 'none';
                     }
                 }
             });
+
+            currentOutfit.preset = newPresetId;
             showSpeech(item.message || '変身！');
             triggerSmokeEffect();
             saveOutfit();
