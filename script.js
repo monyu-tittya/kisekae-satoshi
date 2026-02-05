@@ -1,6 +1,7 @@
 // Assets configuration
 // Categories corresponding to layer IDs: layer-{category}
 const categories = [
+    { id: 'preset', label: 'セット' }, // Preset tab
     { id: 'shirt', label: 'トップス' },
     { id: 'pants', label: 'ボトムス' },
     { id: 'socks', label: '靴下' },
@@ -17,6 +18,26 @@ const categories = [
 
 // wardrobe data
 const wardrobe = {
+    preset: [
+        {
+            id: 'preset_maid',
+            label: 'メイドさん',
+            thumb: 'image/costume_maid.png', // Use existing thumb or dedicated one
+            message: 'お帰りなさいませ、ご主人様♪',
+            outfit: {
+                shirt: 'shirt2',
+            }
+        },
+        {
+            id: 'preset_casual',
+            label: 'いつもの',
+            thumb: 'image/costume_casual.png',
+            message: 'やっぱりこれが落ち着くね',
+            outfit: {
+                shirt: 'shirt1',
+            }
+        }
+    ],
     shirt: [
         { id: 'shirt1', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: '猫のビッグTシャツだ！お気に入り～' },
         { id: 'shirt2', src: 'image/costume_maid.png', thumb: 'image/costume_maid.png', message: 'ちょっと恥ずかしい/////' },
@@ -51,7 +72,7 @@ const emotions = [
 
 // State
 let currentOutfit = {}; // { shirt: 'shirt1', pants: null, ... }
-let currentCategory = 'shirt'; // Default tab
+let currentCategory = 'preset'; // Default tab
 let currentEmotionIndex = 0;
 let currentPage = 0;
 const itemsPerPage = 3;
@@ -156,7 +177,7 @@ function handleTouch(area) {
             if (joyIndex !== -1) {
                 currentEmotionIndex = joyIndex;
                 updateFace();
-                const messages = ['えへへ、くすぐったいよ〜', 'いいこいいこ？', 'んふふ、こしょばい...', 'むふ～...'];
+                const messages = ['えへへ、くすぐったいよ〜', 'いいこいいこしてくれるの？', 'んふふ、こしょばい...', 'むふ～...'];
                 showSpeech(messages[Math.floor(Math.random() * messages.length)]);
             }
             resetFace();
@@ -400,6 +421,40 @@ function renderMenu() {
 }
 
 function toggleItem(item) {
+    if (currentCategory === 'preset') {
+        // Preset Logic: Apply all items in the preset
+        if (item.outfit) {
+            currentOutfit.preset = item.id;
+
+            Object.keys(item.outfit).forEach(catId => {
+                const itemId = item.outfit[catId];
+                // Check if valid category
+                if (wardrobe[catId]) {
+                    currentOutfit[catId] = itemId;
+
+                    // Update layer
+                    const catItem = wardrobe[catId].find(i => i.id === itemId);
+                    if (catItem && stageLayers[catId]) {
+                        stageLayers[catId].src = catItem.src;
+                        stageLayers[catId].style.display = 'block';
+
+                        // Animation
+                        stageLayers[catId].classList.remove('pop-in');
+                        void stageLayers[catId].offsetWidth;
+                        stageLayers[catId].classList.add('pop-in');
+                    }
+                }
+            });
+            showSpeech(item.message || '変身！');
+            triggerSmokeEffect();
+            saveOutfit();
+            renderMenu(); // Update highlight
+        }
+        return; // Done for preset
+    }
+
+    delete currentOutfit.preset;
+
     const isAlreadyEquipped = currentOutfit[currentCategory] === item.id;
     const layer = stageLayers[currentCategory];
 

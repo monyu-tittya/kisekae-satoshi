@@ -117,11 +117,11 @@ body {
     z-index: 3;
 }
 
-.layer-underwear {
+.layer-socks {
     z-index: 4;
 }
 
-.layer-socks {
+.layer-underwear {
     z-index: 5;
 }
 
