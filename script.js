@@ -19,7 +19,7 @@ const categories = [
 const wardrobe = {
     shirt: [
         { id: 'shirt1', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: '猫のビッグTシャツだ！お気に入り～' },
-        { id: 'shirt2', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
+        { id: 'shirt2', src: 'image/costume_maid.png', thumb: 'image/costume_maid.png', message: 'ちょっと恥ずかしい/////' },
         { id: 'shirt3', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
         { id: 'shirt4', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
         { id: 'shirt5', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
@@ -278,6 +278,68 @@ bgColorPicker.addEventListener('input', (e) => {
 
 bgColorPicker.addEventListener('change', (e) => {
     document.body.style.background = e.target.value;
+});
+
+// Screenshot Mode logic
+const cameraBtn = document.getElementById('camera-btn');
+
+cameraBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent immediate close
+    document.body.classList.add('screenshot-mode');
+    showSpeech('撮影モード！');
+    createBokehEffect();
+});
+
+function createBokehEffect() {
+    const container = document.getElementById('shojo-effect');
+    container.innerHTML = ''; // Clear existing
+
+    // Create Bokeh Bubbles & Cross Sparkles
+    const particleCount = 30; // Increased count
+
+    for (let i = 0; i < particleCount; i++) {
+        const p = document.createElement('div');
+        const isCross = Math.random() > 0.7; // 30% chance of cross sparkle
+
+        if (isCross) {
+            p.className = 'sparkle-cross';
+            const size = Math.random() * 20 + 10;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.animationDuration = (Math.random() * 2 + 1) + 's';
+        } else {
+            p.className = 'bokeh-particle';
+            const size = Math.random() * 60 + 20;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            p.style.border = '1px solid rgba(255, 255, 255, 0.4)'; // User preference style
+        }
+
+        // Random Position
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.animationDelay = Math.random() * 5 + 's';
+
+        // Slight color tint for bokeh
+        if (!isCross) {
+            const tint = Math.random() > 0.7 ? '#ffeef2' : '#ffffff';
+            // Keep background transparent mostly as user requested borders, but maybe faint fill?
+            // User set background: transparent in CSS, so maybe we stick to that or add very light fill
+            // Let's respect CSS class mostly, but maybe add slight variation via style if needed.
+            // For now, rely on CSS.
+        }
+
+        container.appendChild(p);
+    }
+}
+
+// Exit mode on click anywhere
+document.addEventListener('click', (e) => {
+    if (document.body.classList.contains('screenshot-mode')) {
+        document.body.classList.remove('screenshot-mode');
+        showSpeech('戻ったよ');
+    }
 });
 
 function updateFace() {
