@@ -177,7 +177,7 @@ body {
 /* Speech Bubble */
 .speech-bubble {
     position: absolute;
-    top: -50px;
+    top: -40px;
     /* Adjusted higher since it can be multiline */
     left: 50%;
     /* Center horizontally */
@@ -312,6 +312,51 @@ body {
 .costume-item.selected {
     border-color: var(--accent-color);
     background: rgba(255, 255, 255, 0.8);
+}
+
+/* Smoke Effect */
+.smoke-particle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 255, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 50;
+    /* Above character */
+    opacity: 0;
+    transform: scale(0.5);
+    animation: puff 0.6s ease-out forwards;
+}
+
+/* Outfit Pop-in Animation */
+.pop-in {
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Bouncy effect */
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.8) translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1) translateY(0);
+    }
+}
+
+@keyframes puff {
+    0% {
+        opacity: 0.8;
+        transform: scale(0.5) translate(0, 0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(2.5) translate(var(--tx), var(--ty));
+    }
 }
 
 .costume-item img {

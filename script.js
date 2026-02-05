@@ -45,6 +45,7 @@ const emotions = [
     { name: 'joy', eyeSrc: 'image/eye_joy.png', mouthSrc: 'image/mouth_joy.png', icon: '😊' },
     { name: 'anger', eyeSrc: 'image/eye_anger.png', mouthSrc: 'image/mouth_anger.png', icon: '😠' },
     { name: 'sorrow', eyeSrc: 'image/eye_sorrow.png', mouthSrc: 'image/mouth_sorrow.png', icon: '😢' },
+    { name: 'surprise', eyeSrc: 'image/eye_surprise.png', mouthSrc: 'image/mouth_surprise.png', icon: '😮' },
     { name: 'sleepy', eyeSrc: 'image/eye_blink.png', mouthSrc: 'image/mouth_joy.png', icon: '😴' }
 ];
 
@@ -79,7 +80,8 @@ const soliloquies = [
     'お腹すいた...おやつないの？',
     '次は何着せる気...？',
     '...さーと...さーと...しーさー♪',
-    'えへへ、似合う？'
+    'えへへ、似合う？',
+    'だいなごんあずき...'
 ];
 
 // Initialization
@@ -117,34 +119,76 @@ function init() {
 const hitboxHead = document.getElementById('hitbox-head');
 const hitboxBody = document.getElementById('hitbox-body');
 
-hitboxHead.addEventListener('click', () => {
-    // Joyful reaction
+// Keep counts separate so they don't interfere
+const touchCounts = {
+    head: 0,
+    body: 0
+};
+
+function handleTouch(area) {
+    touchCounts[area]++;
+    const count = touchCounts[area];
+
     const savedEmotionIndex = currentEmotionIndex;
 
-    // Switch to Joy (assuming index 0 is Joy, or find by name)
-    const joyIndex = emotions.findIndex(e => e.name === 'joy');
-    if (joyIndex !== -1) {
-        currentEmotionIndex = joyIndex;
-        updateFace();
-        showSpeech('えへへ、くすぐったいよ〜');
+    // Reset reaction helper
+    const resetFace = () => {
+        setTimeout(() => {
+            currentEmotionIndex = savedEmotionIndex;
+            updateFace();
+        }, 2000);
+    };
+
+    if (area === 'head') {
+        if (count >= 10) {
+            // Angry reaction
+            const angerIndex = emotions.findIndex(e => e.name === 'anger');
+            if (angerIndex !== -1) {
+                currentEmotionIndex = angerIndex;
+                updateFace();
+                showSpeech('もう...撫ですぎじゃない...？');
+            }
+            touchCounts.head = 0; // Reset after angry
+            resetFace();
+        } else {
+            // Normal joy reaction
+            const joyIndex = emotions.findIndex(e => e.name === 'joy');
+            if (joyIndex !== -1) {
+                currentEmotionIndex = joyIndex;
+                updateFace();
+                const messages = ['えへへ、くすぐったいよ〜', 'いいこいいこ？', 'んふふ、こしょばい...', 'むふ～...'];
+                showSpeech(messages[Math.floor(Math.random() * messages.length)]);
+            }
+            resetFace();
+        }
+    } else if (area === 'body') {
+        if (count >= 5) {
+            // Angry/Annoyed reaction
+            const angerIndex = emotions.findIndex(e => e.name === 'anger');
+            if (angerIndex !== -1) {
+                currentEmotionIndex = angerIndex;
+                updateFace();
+                showSpeech('もう！やめてよ～～～！');
+            }
+            touchCounts.body = 0;
+            resetFace();
+        } else {
+            // Surprise reaction
+            const surpriseIndex = emotions.findIndex(e => e.name === 'surprise');
+            if (surpriseIndex !== -1) {
+                currentEmotionIndex = surpriseIndex;
+                updateFace();
+                const messages = ['わっ！そこはダメだよ〜', 'ひゃっ！びっくりした', 'もー、どこ触ってるの？', 'ひゃん！！！'];
+                showSpeech(messages[Math.floor(Math.random() * messages.length)]);
+            }
+            blink();
+            setTimeout(blink, 200);
+        }
     }
+}
 
-    // Restore after 2 seconds
-    setTimeout(() => {
-        currentEmotionIndex = savedEmotionIndex;
-        updateFace();
-    }, 2000);
-});
-
-hitboxBody.addEventListener('click', () => {
-    // Shy/Surprised reaction (using Anger or Sorrow as placeholder if no Blush)
-    // Or just custom message
-    showSpeech('わっ！そこはダメだよ〜');
-
-    // Blink fast
-    blink();
-    setTimeout(blink, 200);
-});
+hitboxHead.addEventListener('click', () => handleTouch('head'));
+hitboxBody.addEventListener('click', () => handleTouch('body'));
 
 // Soliloquy Logic
 function startSoliloquyLoop() {
@@ -308,11 +352,53 @@ function toggleItem(item) {
         currentOutfit[currentCategory] = item.id;
         layer.src = item.src;
         layer.style.display = 'block';
+
+        // Trigger Pop-in Animation
+        layer.classList.remove('pop-in');
+        void layer.offsetWidth; // Trigger reflow
+        layer.classList.add('pop-in');
+
         showSpeech(item.message || '着替えたよ！');
     }
 
     renderMenu(); // Re-render to update border selection
     saveOutfit();
+    triggerSmokeEffect();
+}
+
+function triggerSmokeEffect() {
+    const container = document.querySelector('.character-container');
+    const particleCount = 12;
+
+    for (let i = 0; i < particleCount; i++) {
+        const p = document.createElement('div');
+        p.className = 'smoke-particle';
+
+        // Random position around center
+        // Assuming char container is approx 300px wide, center is 150
+        // We want smoke around the body center (e.g. 50% left, 60% top)
+        const left = 50 + (Math.random() - 0.5) * 40; // 30% to 70%
+        const top = 50 + (Math.random() - 0.5) * 60;  // 20% to 80%
+
+        // Random usage for custom prop in animation
+        const tx = (Math.random() - 0.5) * 100 + 'px';
+        const ty = (Math.random() - 0.5) * 100 + 'px';
+
+        p.style.left = left + '%';
+        p.style.top = top + '%';
+        p.style.setProperty('--tx', tx);
+        p.style.setProperty('--ty', ty);
+
+        // Randomize scale start a bit? CSS handles scale, maybe animation delay
+        p.style.animationDelay = (Math.random() * 0.1) + 's';
+
+        container.appendChild(p);
+
+        // Remove after animation
+        setTimeout(() => {
+            p.remove();
+        }, 700);
+    }
 }
 
 // Pagination Controls
