@@ -15,10 +15,10 @@ const categories = [
     { id: 'background', label: '背景' }
 ];
 
-// Sample wardrobe data (Using placeholders or re-using existing assets for demo)
+// wardrobe data
 const wardrobe = {
     shirt: [
-        { id: 'shirt1', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
+        { id: 'shirt1', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: '猫のビッグTシャツだ！お気に入り～' },
         { id: 'shirt2', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
         { id: 'shirt3', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
         { id: 'shirt4', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' },
@@ -26,7 +26,6 @@ const wardrobe = {
         { id: 'shirt6', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'Tシャツ！' }
     ],
     pants: [
-        // For demo purposes, using same images. In real usage, these would be separate 'pants' transparent pngs.
         { id: 'pants1', src: 'image/costume_casual.png', thumb: 'image/costume_casual.png', message: 'スカート履いたよ' },
     ],
     shoes: [],
@@ -72,6 +71,17 @@ const eyeLayer = document.getElementById('layer-eyes');   // Specific access for
 // Local Storage Key
 const STORAGE_KEY = 'kisekae_outfit';
 
+// Soliloquy Config
+const soliloquies = [
+    'まだ決まらないの？',
+    '新しい服、欲しいなぁ...',
+    '暇だなぁ...',
+    'お腹すいた...おやつないの？',
+    '次は何着せる気...？',
+    '...さーと...さーと...しーさー♪',
+    'えへへ、似合う？'
+];
+
 // Initialization
 function init() {
     // Cache layer elements
@@ -96,11 +106,58 @@ function init() {
     renderTabs();
     renderMenu();
     startBlinking();
+    startSoliloquyLoop(); // Start auto-speech
     updatePaginationButtons();
 
     // Set initial face
     updateFace();
 }
+
+// Interaction Logic (Nade-nade)
+const hitboxHead = document.getElementById('hitbox-head');
+const hitboxBody = document.getElementById('hitbox-body');
+
+hitboxHead.addEventListener('click', () => {
+    // Joyful reaction
+    const savedEmotionIndex = currentEmotionIndex;
+
+    // Switch to Joy (assuming index 0 is Joy, or find by name)
+    const joyIndex = emotions.findIndex(e => e.name === 'joy');
+    if (joyIndex !== -1) {
+        currentEmotionIndex = joyIndex;
+        updateFace();
+        showSpeech('えへへ、くすぐったいよ〜');
+    }
+
+    // Restore after 2 seconds
+    setTimeout(() => {
+        currentEmotionIndex = savedEmotionIndex;
+        updateFace();
+    }, 2000);
+});
+
+hitboxBody.addEventListener('click', () => {
+    // Shy/Surprised reaction (using Anger or Sorrow as placeholder if no Blush)
+    // Or just custom message
+    showSpeech('わっ！そこはダメだよ〜');
+
+    // Blink fast
+    blink();
+    setTimeout(blink, 200);
+});
+
+// Soliloquy Logic
+function startSoliloquyLoop() {
+    // Run every 60 seconds (60000ms)
+    setInterval(() => {
+        // Only speak if bubble is not currently active (to avoid overwriting user interaction)
+        if (!speechBubble.classList.contains('active')) {
+            const text = soliloquies[Math.floor(Math.random() * soliloquies.length)];
+            showSpeech(text);
+        }
+    }, 60000);
+}
+
 
 function loadOutfit() {
     try {
@@ -285,7 +342,9 @@ function updatePaginationButtons() {
 // Speech Bubble
 let speechTimeout;
 function showSpeech(text) {
-    speechText.textContent = text;
+    // Wrap text every 10 characters
+    const wrappedText = text.match(/.{1,10}/g).join("<br>");
+    speechText.innerHTML = wrappedText;
     speechBubble.classList.add('active');
 
     if (speechTimeout) clearTimeout(speechTimeout);

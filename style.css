@@ -165,11 +165,24 @@ body {
     z-index: 15;
 }
 
+/* Hitboxes for Interaction */
+.hitbox {
+    position: absolute;
+    z-index: 50;
+    /* Above layers, below bubble */
+    cursor: pointer;
+    /* background: rgba(255, 0, 0, 0.2); Debug visualization */
+}
+
 /* Speech Bubble */
 .speech-bubble {
     position: absolute;
-    top: -40px;
-    right: 50%;
+    top: -50px;
+    /* Adjusted higher since it can be multiline */
+    left: 50%;
+    /* Center horizontally */
+    transform: translateX(-50%) translateY(10px);
+    /* Center X, offset Y */
     background: #fff;
     padding: 10px 15px;
     border-radius: 20px;
@@ -178,24 +191,31 @@ body {
     font-weight: bold;
     color: var(--text-color);
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateX(-50%) translateY(10px);
     transition: opacity 0.3s, transform 0.3s;
     pointer-events: none;
     z-index: 100;
     /* Top most on stage */
-    white-space: nowrap;
+    white-space: normal;
+    /* Allow wrapping */
+    text-align: left;
+    max-width: 200px;
+    /* Limit width */
+    line-height: 1.4;
 }
+
 
 .speech-bubble.active {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
 }
 
 .speech-bubble::after {
     content: '';
     position: absolute;
     bottom: -8px;
-    left: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     border-width: 8px 8px 0;
     border-style: solid;
     border-color: #fff transparent;
