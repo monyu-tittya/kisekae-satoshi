@@ -94,9 +94,10 @@ body {
     position: absolute;
     bottom: 0;
     /* Align bottom to keep feet on ground when resizing */
-    left: 50%;
-    transform: translateX(-50%);
-    /* Center horizontally */
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    /* Center horizontally without transform */
     width: auto;
     height: 100%;
     /* Scale height to fit container */
@@ -338,12 +339,12 @@ body {
 @keyframes popIn {
     0% {
         opacity: 0;
-        transform: translateX(-50%) scale(0.8) translateY(10px);
+        transform: translateY(10px) scale(0.8);
     }
 
     100% {
         opacity: 1;
-        transform: translateX(-50%) scale(1) translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
