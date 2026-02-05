@@ -86,8 +86,7 @@ function init() {
     } else {
         // Default Outfit
         currentOutfit = {
-            shirt: 'shirt1',
-            pants: 'pants1'
+            shirt: 'shirt1'
         };
     }
 
