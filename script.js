@@ -42,21 +42,50 @@ const wardrobe = {
                 hat: 'bunny',
                 gloves: 'bunny'
             }
+        },
+        {
+            id: 'preset_black',
+            label: 'ブラック',
+            thumb: 'image/black_shirt.png',
+            message: 'ディール！！...なんちゃって',
+            outfit: {
+                shirt: 'black',
+                pants: 'black',
+                shoes: 'black',
+                hat: 'black',
+                gloves: 'black'
+            }
+        },
+        {
+            id: 'preset_sonemi',
+            label: 'そねみちゃんの服',
+            thumb: 'image/sonemi_shirts.png',
+            message: '派手だな～',
+            outfit: {
+                shirt: 'sonemi',
+                socks: 'sonemi',
+                hat: 'sonemi'
+            }
         }
     ],
     shirt: [
         { id: 'normal', src: 'image/normal_shirt.png', thumb: 'image/normal_shirt.png', message: 'やっぱこれだよね～' },
-        { id: 'nekoTshirts', src: 'image/nekoTshirts_shirt.png', thumb: 'image/nekoTshirts_shirt.png', message: '猫のビッグTシャツだ！お気に入り～' }
+        { id: 'nekoTshirts', src: 'image/nekoTshirts_shirt.png', thumb: 'image/nekoTshirts_shirt.png', message: '猫のビッグTシャツだ！お気に入り～' },
+        { id: 'black', src: 'image/black_shirt.png', thumb: 'image/black_shirt.png', message: 'ブラックの服だね' },
+        { id: 'sonemi', src: 'image/sonemi_shirt.png', thumb: 'image/sonemi_shirt.png', message: 'そねみちゃんの服！？' }
     ],
     pants: [
-        { id: 'normal', src: 'image/normal_pants.png', thumb: 'image/normal_pants.png', message: 'やっぱこれだよね～' }
+        { id: 'normal', src: 'image/normal_pants.png', thumb: 'image/normal_pants.png', message: 'やっぱこれだよね～' },
+        { id: 'black', src: 'image/black_pants.png', thumb: 'image/black_pants.png', message: 'ブラックの服だね' },
     ],
     shoes: [
         { id: 'normal', src: 'image/normal_shoes.png', thumb: 'image/normal_shoes.png', message: 'やっぱこれだよね～' },
-        { id: 'bunny', src: 'image/bunny_shoes.png', thumb: 'image/bunny_shoes.png', message: 'ツヤツヤの靴だ...' }
+        { id: 'bunny', src: 'image/bunny_shoes.png', thumb: 'image/bunny_shoes.png', message: 'ツヤツヤの靴だ...' },
+        { id: 'black', src: 'image/black_shoes.png', thumb: 'image/black_shoes.png', message: 'ブラックの靴だね' }
     ],
     socks: [
-        { id: 'bunny', src: 'image/bunny_socks.png', thumb: 'image/bunny_socks.png', message: 'ちょっと恥ずかしい...' }
+        { id: 'bunny', src: 'image/bunny_socks.png', thumb: 'image/bunny_socks.png', message: 'ちょっと恥ずかしい...' },
+        { id: 'sonemi', src: 'image/sonemi_socks.png', thumb: 'image/sonemi_socks.png', message: 'ちょっと恥ずかしい...' }
     ],
     coat: [
     ],
@@ -64,10 +93,12 @@ const wardrobe = {
         { id: 'bunny', src: 'image/bunny_underwear.png', thumb: 'image/bunny_underwear.png', message: 'ちょっと恥ずかしい...' }
     ],
     hat: [
-        { id: 'bunny', src: 'image/bunny_hat.png', thumb: 'image/bunny_hat.png', message: 'ウサギの耳…？' }
+        { id: 'bunny', src: 'image/bunny_hat.png', thumb: 'image/bunny_hat.png', message: 'ウサギの耳...？' },
+        { id: 'sonemi', src: 'image/sonemi_hat.png', thumb: 'image/sonemi_hat.png', message: '水玉リボン...？' }
     ],
     gloves: [
-        { id: 'bunny', src: 'image/bunny_gloves.png', thumb: 'image/bunny_gloves.png', message: 'カフスと蝶ネクタイだ' }
+        { id: 'bunny', src: 'image/bunny_gloves.png', thumb: 'image/bunny_gloves.png', message: 'カフスと蝶ネクタイだ' },
+         { id: 'black', src: 'image/black_gloves.png', thumb: 'image/black_gloves.png', message: 'ブラックの手袋だね' }
     ],
     necklace: [],
     earrings: [],
