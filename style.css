@@ -130,15 +130,15 @@ body {
     z-index: 6;
 }
 
-.layer-shirt {
+.layer-shoes {
     z-index: 7;
 }
 
-.layer-shoes {
+.layer-pants {
     z-index: 8;
 }
 
-.layer-pants {
+.layer-shirt {
     z-index: 9;
 }
 
