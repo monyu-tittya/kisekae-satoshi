@@ -72,7 +72,7 @@ const wardrobe = {
         { id: 'normal', src: 'image/normal_shirt.png', thumb: 'image/normal_shirt.png', message: 'やっぱこれだよね～' },
         { id: 'nekoTshirts', src: 'image/nekoTshirts_shirt.png', thumb: 'image/nekoTshirts_shirt.png', message: '猫のビッグTシャツだ！お気に入り～' },
         { id: 'black', src: 'image/black_shirt.png', thumb: 'image/black_shirt.png', message: 'ブラックの服だね' },
-        { id: 'sonemi', src: 'image/sonemi_shirt.png', thumb: 'image/sonemi_shirt.png', message: 'そねみちゃんの服！？' }
+        { id: 'sonemi', src: 'image/sonemi_shirts.png', thumb: 'image/sonemi_shirts.png', message: 'そねみちゃんの服！？' }
     ],
     pants: [
         { id: 'normal', src: 'image/normal_pants.png', thumb: 'image/normal_pants.png', message: 'やっぱこれだよね～' },
