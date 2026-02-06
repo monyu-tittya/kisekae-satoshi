@@ -126,19 +126,19 @@ body {
     z-index: 5;
 }
 
-.layer-pants {
+.layer-gloves {
     z-index: 6;
 }
 
-.layer-gloves {
+.layer-shirt {
     z-index: 7;
 }
 
-.layer-shirt {
+.layer-shoes {
     z-index: 8;
 }
 
-.layer-shoes {
+.layer-pants {
     z-index: 9;
 }
 
