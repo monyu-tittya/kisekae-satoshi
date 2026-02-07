@@ -90,6 +90,7 @@ const wardrobe = {
                 hat: 'maid',
                 socks: 'bunny',
                 shoes: 'bunny',
+                gloves: 'bunny'
                 
             }
         },
