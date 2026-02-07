@@ -66,6 +66,18 @@ const wardrobe = {
                 socks: 'sonemi',
                 hat: 'sonemi'
             }
+        },
+        {
+            id: 'preset_cat',
+            label: '猫の服',
+            thumb: 'image/nekoTshirts_shirt.png',
+            message: '派手だな～',
+            outfit: {
+                shirt: 'nekoTshirts',
+                back: 'cat',
+                necklace: 'cat',
+                hat: 'cat'
+            }
         }
     ],
     shirt: [
@@ -94,16 +106,23 @@ const wardrobe = {
     ],
     hat: [
         { id: 'bunny', src: 'image/bunny_hat.png', thumb: 'image/bunny_hat.png', message: 'ウサギの耳...？' },
-        { id: 'sonemi', src: 'image/sonemi_hat.png', thumb: 'image/sonemi_hat.png', message: '水玉リボン...？' }
+        { id: 'sonemi', src: 'image/sonemi_hat.png', thumb: 'image/sonemi_hat.png', message: '水玉リボン...？' },
+        { id: 'neko', src: 'image/neko_hat.png', thumb: 'image/neko_hat.png', message: '猫耳...？' }
     ],
     gloves: [
         { id: 'bunny', src: 'image/bunny_gloves.png', thumb: 'image/bunny_gloves.png', message: 'カフスと蝶ネクタイだ' },
-         { id: 'black', src: 'image/black_gloves.png', thumb: 'image/black_gloves.png', message: 'ブラックの手袋だね' }
+        { id: 'black', src: 'image/black_gloves.png', thumb: 'image/black_gloves.png', message: 'ブラックの手袋だね' }
     ],
-    necklace: [],
+    necklace: [
+        { id: 'neko', src: 'image/neko_necklace.png', thumb: 'image/neko_necklace.png', message: '首輪…？' }
+    ],
     earrings: [],
-    back: [],
-    background: []
+    back: [
+         { id: 'neko', src: 'image/neko_back.png', thumb: 'image/neko_back.png', message: 'しっぽ…？' }
+    ],
+    background: [
+        { id: 'blacame', src: 'image/blacame_background.png', thumb: 'image/blacame_background.png', message: 'わっ！！' }
+    ]
 };
 
 // Emotion Config
