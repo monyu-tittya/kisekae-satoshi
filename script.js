@@ -71,7 +71,7 @@ const wardrobe = {
             id: 'preset_cat',
             label: '猫の服',
             thumb: 'image/nekoTshirts_shirt.png',
-            message: '派手だな～',
+            message: 'にゃ〜ん🎵',
             outfit: {
                 shirt: 'nekoTshirts',
                 back: 'neko',
