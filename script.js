@@ -74,9 +74,9 @@ const wardrobe = {
             message: '派手だな～',
             outfit: {
                 shirt: 'nekoTshirts',
-                back: 'cat',
-                necklace: 'cat',
-                hat: 'cat'
+                back: 'neko',
+                necklace: 'neko',
+                hat: 'neko'
             }
         }
     ],
@@ -107,21 +107,21 @@ const wardrobe = {
     hat: [
         { id: 'bunny', src: 'image/bunny_hat.png', thumb: 'image/bunny_hat.png', message: 'ウサギの耳...？' },
         { id: 'sonemi', src: 'image/sonemi_hat.png', thumb: 'image/sonemi_hat.png', message: '水玉リボン...？' },
-        { id: 'neko', src: 'image/neko_hat.png', thumb: 'image/neko_hat.png', message: '猫耳...？' }
+        { id: 'neko', src: 'image/cat_hat.png', thumb: 'image/cat_hat.png', message: '猫耳...？' }
     ],
     gloves: [
         { id: 'bunny', src: 'image/bunny_gloves.png', thumb: 'image/bunny_gloves.png', message: 'カフスと蝶ネクタイだ' },
         { id: 'black', src: 'image/black_gloves.png', thumb: 'image/black_gloves.png', message: 'ブラックの手袋だね' }
     ],
     necklace: [
-        { id: 'neko', src: 'image/neko_necklace.png', thumb: 'image/neko_necklace.png', message: '首輪…？' }
+        { id: 'neko', src: 'image/cat_necklace.png', thumb: 'image/cat_necklace.png', message: '首輪…？' }
     ],
     earrings: [],
     back: [
-         { id: 'neko', src: 'image/neko_back.png', thumb: 'image/neko_back.png', message: 'しっぽ…？' }
+         { id: 'neko', src: 'image/cat_back.png', thumb: 'image/cat_back.png', message: 'しっぽ…？' }
     ],
     background: [
-        { id: 'blacame', src: 'image/blacame_background.png', thumb: 'image/blacame_background.png', message: 'わっ！！' }
+        { id: 'blacame', src: 'image/blacame_back.png', thumb: 'image/blacame_back.png', message: 'わっ！！' }
     ]
 };
 
