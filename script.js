@@ -64,7 +64,8 @@ const wardrobe = {
             outfit: {
                 shirt: 'sonemi',
                 socks: 'sonemi',
-                hat: 'sonemi'
+                hat: 'sonemi',
+                shoes: 'bunny'
             }
         },
         {
@@ -78,13 +79,40 @@ const wardrobe = {
                 necklace: 'neko',
                 hat: 'neko'
             }
+        },
+        {
+            id: 'preset_maid',
+            label: 'メイド服',
+            thumb: 'image/maid_shirt.png',
+            message: 'おかえりくださいご主人様！',
+            outfit: {
+                shirt: 'maid',
+                hat: 'maid',
+                socks: 'bunny',
+                shoes: 'bunny',
+                
+            }
+        },
+        {
+            id: 'preset_pajama',
+            label: 'パジャマ',
+            thumb: 'image/pajama_shirt.png',
+            message: 'パジャマだ～',
+            outfit: {
+                shirt: 'pajama',
+                hat: 'pajama',
+                back: 'pajama'
+                
+            }
         }
     ],
     shirt: [
         { id: 'normal', src: 'image/normal_shirt.png', thumb: 'image/normal_shirt.png', message: 'やっぱこれだよね～' },
         { id: 'nekoTshirts', src: 'image/nekoTshirts_shirt.png', thumb: 'image/nekoTshirts_shirt.png', message: '猫のビッグTシャツだ！お気に入り～' },
         { id: 'black', src: 'image/black_shirt.png', thumb: 'image/black_shirt.png', message: 'ブラックの服だね' },
-        { id: 'sonemi', src: 'image/sonemi_shirts.png', thumb: 'image/sonemi_shirts.png', message: 'そねみちゃんの服！？' }
+        { id: 'sonemi', src: 'image/sonemi_shirts.png', thumb: 'image/sonemi_shirts.png', message: 'そねみちゃんの服！？' },
+        { id: 'maid', src: 'image/maid_shirt.png', thumb: 'image/maid_shirt.png', message: 'メイド服！？' },
+        { id: 'pajama', src: 'image/pajama_shirt.png', thumb: 'image/pajama_shirt.png', message: 'パジャマだ～' }
     ],
     pants: [
         { id: 'normal', src: 'image/normal_pants.png', thumb: 'image/normal_pants.png', message: 'やっぱこれだよね～' },
@@ -107,7 +135,9 @@ const wardrobe = {
     hat: [
         { id: 'bunny', src: 'image/bunny_hat.png', thumb: 'image/bunny_hat.png', message: 'ウサギの耳...？' },
         { id: 'sonemi', src: 'image/sonemi_hat.png', thumb: 'image/sonemi_hat.png', message: '水玉リボン...？' },
-        { id: 'neko', src: 'image/cat_hat.png', thumb: 'image/cat_hat.png', message: '猫耳...？' }
+        { id: 'neko', src: 'image/cat_hat.png', thumb: 'image/cat_hat.png', message: '猫耳...？' },
+        { id: 'maid', src: 'image/maid_hat.png', thumb: 'image/maid_hat.png', message: 'メイドさんのピロピロ...？' },
+        { id: 'pajama', src: 'image/pajama_hat.png', thumb: 'image/pajama_hat.png', message: 'パジャマのぼうし～' }
     ],
     gloves: [
         { id: 'bunny', src: 'image/bunny_gloves.png', thumb: 'image/bunny_gloves.png', message: 'カフスと蝶ネクタイだ' },
@@ -118,7 +148,8 @@ const wardrobe = {
     ],
     earrings: [],
     back: [
-         { id: 'neko', src: 'image/cat_back.png', thumb: 'image/cat_back.png', message: 'しっぽ…？' }
+         { id: 'neko', src: 'image/cat_back.png', thumb: 'image/cat_back.png', message: 'しっぽ…？' },
+        { id: 'pajama', src: 'image/pajama_back.png', thumb: 'image/pajama_back.png', message: 'まくらだよ～' }
     ],
     background: [
         { id: 'blacame', src: 'image/blacame_back.png', thumb: 'image/blacame_back.png', message: 'わっ！！' }
