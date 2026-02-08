@@ -105,6 +105,32 @@ const wardrobe = {
                 back: 'pajama'
                 
             }
+        },
+        {
+            id: 'preset_taiso',
+            label: '体操服',
+            thumb: 'image/taiso_shirt.png',
+            message: '体操服だ',
+            outfit: {
+                shirt: 'taiso',
+                pants: 'taiso',
+                shoes: 'taiso'
+                
+            }
+        },
+        {
+            id: 'preset_sailor',
+            label: 'セーラー服,
+            thumb: 'image/sailor_shirt.png',
+            message: 'セーラー服…？',
+            outfit: {
+                shirt: 'sailor',
+                pants: 'sailor',
+                socks: 'sailor',
+                shoes: 'sailor'
+                
+                
+            }
         }
     ],
     shirt: [
@@ -113,20 +139,27 @@ const wardrobe = {
         { id: 'black', src: 'image/black_shirt.png', thumb: 'image/black_shirt.png', message: 'ブラックの服だね' },
         { id: 'sonemi', src: 'image/sonemi_shirts.png', thumb: 'image/sonemi_shirts.png', message: 'そねみちゃんの服！？' },
         { id: 'maid', src: 'image/maid_shirt.png', thumb: 'image/maid_shirt.png', message: 'メイド服！？' },
-        { id: 'pajama', src: 'image/pajama_shirt.png', thumb: 'image/pajama_shirt.png', message: 'パジャマだ～' }
+        { id: 'pajama', src: 'image/pajama_shirt.png', thumb: 'image/pajama_shirt.png', message: 'パジャマだ～' },
+         { id: 'sailor', src: 'image/sailor_shirt.png', thumb: 'image/sailor_shirt.png', message: '体操服だよ' },
+         { id: 'taiso', src: 'image/taiso_shirt.png', thumb: 'image/taiso_shirt.png', message: 'セーラー服！？' }
     ],
     pants: [
         { id: 'normal', src: 'image/normal_pants.png', thumb: 'image/normal_pants.png', message: 'やっぱこれだよね～' },
         { id: 'black', src: 'image/black_pants.png', thumb: 'image/black_pants.png', message: 'ブラックの服だね' },
+         { id: 'sailor', src: 'image/sailor_pants.png', thumb: 'image/sailor_pants.png', message: 'セーラー服のスカート！？' },
+         { id: 'taiso', src: 'image/taiso_pants.png', thumb: 'image/taiso_pants.png', message: '体操服のズボンだよ' }
     ],
     shoes: [
         { id: 'normal', src: 'image/normal_shoes.png', thumb: 'image/normal_shoes.png', message: 'やっぱこれだよね～' },
         { id: 'bunny', src: 'image/bunny_shoes.png', thumb: 'image/bunny_shoes.png', message: 'ツヤツヤの靴だ...' },
-        { id: 'black', src: 'image/black_shoes.png', thumb: 'image/black_shoes.png', message: 'ブラックの靴だね' }
+        { id: 'black', src: 'image/black_shoes.png', thumb: 'image/black_shoes.png', message: 'ブラックの靴だね' },
+         { id: 'sailor', src: 'image/sailor_shoes.png', thumb: 'image/sailor_shoes.png', message: 'ローファーだよ' },
+         { id: 'taiso', src: 'image/taiso_shoes.png', thumb: 'image/taiso_shoes.png', message: '上履きだよ' }
     ],
     socks: [
         { id: 'bunny', src: 'image/bunny_socks.png', thumb: 'image/bunny_socks.png', message: 'ちょっと恥ずかしい...' },
-        { id: 'sonemi', src: 'image/sonemi_socks.png', thumb: 'image/sonemi_socks.png', message: 'ちょっと恥ずかしい...' }
+        { id: 'sonemi', src: 'image/sonemi_socks.png', thumb: 'image/sonemi_socks.png', message: 'ちょっと恥ずかしい...' },
+        { id: 'sailor', src: 'image/sailor_socks.png', thumb: 'image/sailor_socks.png', message: '白い靴下だね' }
     ],
     coat: [
     ],
