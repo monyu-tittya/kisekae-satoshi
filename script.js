@@ -91,7 +91,6 @@ const wardrobe = {
                 socks: 'bunny',
                 shoes: 'bunny',
                 gloves: 'bunny'
-                
             }
         },
         {
@@ -103,7 +102,6 @@ const wardrobe = {
                 shirt: 'pajama',
                 hat: 'pajama',
                 back: 'pajama'
-                
             }
         },
         {
@@ -120,7 +118,7 @@ const wardrobe = {
         },
         {
             id: 'preset_sailor',
-            label: 'セーラー服,
+            label: 'セーラー服',
             thumb: 'image/sailor_shirt.png',
             message: 'セーラー服…？',
             outfit: {
@@ -128,8 +126,6 @@ const wardrobe = {
                 pants: 'sailor',
                 socks: 'sailor',
                 shoes: 'sailor'
-                
-                
             }
         }
     ],
