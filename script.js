@@ -778,6 +778,17 @@ function renderStaticCharacter(mode, outfit) {
     wrapper.appendChild(mouth);
 
     // Clothes
+    // Define explicit z-index for each layer to match main app
+    const layerZIndex = {
+        back: 1,
+        underwear: 9,
+        socks: 10,
+        pants: 20,
+        shirt: 30,
+        shoes: 40,
+        hat: 50
+    };
+
     categories.forEach((cat, index) => {
         if (cat.id === 'preset' || cat.id === 'background') return;
 
@@ -788,7 +799,7 @@ function renderStaticCharacter(mode, outfit) {
                 const img = document.createElement('img');
                 img.src = item.src;
                 img.className = `static-layer layer-${cat.id}`;
-                img.style.zIndex = 10 + index;
+                img.style.zIndex = layerZIndex[cat.id] || (10 + index);
                 wrapper.appendChild(img);
             }
         }
