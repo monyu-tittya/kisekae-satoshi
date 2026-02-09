@@ -813,26 +813,37 @@ function triggerSmokeEffect() {
 
 // Pagination Controls
 prevBtn.addEventListener('click', () => {
+    const items = wardrobe[currentCategory] || [];
+    const maxPage = Math.ceil(items.length / itemsPerPage) - 1;
+
     if (currentPage > 0) {
         currentPage--;
-        renderMenu();
-        updatePaginationButtons();
+    } else {
+        currentPage = maxPage > 0 ? maxPage : 0;
     }
+    renderMenu();
+    updatePaginationButtons();
 });
 
 nextBtn.addEventListener('click', () => {
     const items = wardrobe[currentCategory] || [];
+    const maxPage = Math.ceil(items.length / itemsPerPage) - 1;
+
     if ((currentPage + 1) * itemsPerPage < items.length) {
         currentPage++;
-        renderMenu();
-        updatePaginationButtons();
+    } else {
+        currentPage = 0;
     }
+    renderMenu();
+    updatePaginationButtons();
 });
 
 function updatePaginationButtons() {
     const items = wardrobe[currentCategory] || [];
-    prevBtn.disabled = currentPage === 0;
-    nextBtn.disabled = (currentPage + 1) * itemsPerPage >= items.length;
+    const isSinglePage = items.length <= itemsPerPage;
+
+    prevBtn.disabled = isSinglePage;
+    nextBtn.disabled = isSinglePage;
 }
 
 // Speech Bubble
