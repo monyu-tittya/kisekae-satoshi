@@ -1,0 +1,212 @@
+{
+    "preset": [
+        {
+            "id": "preset_normal",
+            "label": "いつもの",
+            "thumb": "image/normal_shirt.png",
+            "message": {
+                "satoshi": "やっぱりこれが落ち着く～",
+                "satoshi_sama": "..."
+            },
+            "outfit": {
+                "shirt": "normal",
+                "pants": "normal",
+                "shoes": "normal",
+                "background": "blacame"
+            }
+        },
+        {
+            "id": "preset_bunny",
+            "label": "バニー",
+            "thumb": "image/bunny_underwear.png",
+            "message": {
+                "satoshi": "バニー！？",
+                "satoshi_sama": "...何考えてるの？"
+            },
+            "outfit": {
+                "underwear": "bunny",
+                "socks": "bunny",
+                "shoes": "bunny",
+                "hat": "bunny",
+                "gloves": "bunny"
+            }
+        },
+        {
+            "id": "preset_black",
+            "label": "ブラック",
+            "thumb": "image/black_shirt.png",
+            "message": {
+                "satoshi": "ディール！！...なんちゃって！",
+                "satoshi_sama": "...なんかイラッとするんだけど..."
+            },
+            "outfit": {
+                "shirt": "black",
+                "pants": "black",
+                "shoes": "black",
+                "hat": "black",
+                "gloves": "black"
+            }
+        },
+        {
+            "id": "preset_sonemi",
+            "label": "そねみちゃんの服",
+            "thumb": "image/sonemi_shirts.png",
+            "message": {
+                "satoshi": "派手だな～",
+                "satoshi_sama": "..."
+            },
+            "outfit": {
+                "shirt": "sonemi",
+                "socks": "sonemi",
+                "hat": "sonemi",
+                "shoes": "bunny"
+            }
+        },
+        {
+            "id": "preset_cat",
+            "label": "猫の服",
+            "thumb": "image/nekoTshirts_shirt.png",
+            "message": {
+                "satoshi": "にゃ〜ん🎵",
+                "satoshi_sama": "...にゃ..."
+            },
+            "outfit": {
+                "shirt": "nekoTshirts",
+                "back": "neko",
+                "necklace": "neko",
+                "hat": "neko"
+            }
+        },
+        {
+            "id": "preset_maid",
+            "label": "メイド服",
+            "thumb": "image/maid_shirt.png",
+            "message": {
+                "satoshi": "おかえりくださいませご主人様！",
+                "satoshi_sama": "...帰れ"
+            },
+            "outfit": {
+                "shirt": "maid",
+                "hat": "maid",
+                "socks": "bunny",
+                "shoes": "bunny",
+                "gloves": "bunny"
+            }
+        },
+        {
+            "id": "preset_pajama",
+            "label": "パジャマ",
+            "thumb": "image/pajama_shirt.png",
+            "message": {
+                "satoshi": "パジャマだ～",
+                "satoshi_sama": "...寝る..."
+            },
+            "outfit": {
+                "shirt": "pajama",
+                "hat": "pajama",
+                "back": "pajama"
+            }
+        },
+        {
+            "id": "preset_taiso",
+            "label": "体操服",
+            "thumb": "image/taiso_shirt.png",
+            "message": {
+                "satoshi": "体操服だね",
+                "satoshi_sama": "..."
+            },
+            "outfit": {
+                "shirt": "taiso",
+                "pants": "taiso",
+                "socks": "sailor",
+                "shoes": "taiso"
+            }
+        },
+        {
+            "id": "preset_sailor",
+            "label": "セーラー服",
+            "thumb": "image/sailor_shirt.png",
+            "message": {
+                "satoshi": "セーラー服...？",
+                "satoshi_sama": "..."
+            },
+            "outfit": {
+                "shirt": "sailor",
+                "pants": "sailor",
+                "socks": "sailor",
+                "shoes": "sailor"
+            }
+        },
+        {
+            "id": "preset_sasama",
+            "label": "さとし様",
+            "thumb": "image/sasama_shirt.png",
+            "message": {
+                "satoshi": "反転世界の俺じゃん...！",
+                "satoshi_sama": "...落ち着く"
+            },
+            "outfit": {
+                "shirt": "sasama",
+                "pants": "sasama",
+                "background": "mao"
+            }
+        }
+    ],
+    "shirt": [
+        { "id": "normal", "src": "image/normal_shirt.png", "thumb": "image/normal_shirt.png", "message": "やっぱこれだよね～" },
+        { "id": "nekoTshirts", "src": "image/nekoTshirts_shirt.png", "thumb": "image/nekoTshirts_shirt.png", "message": "猫のビッグTシャツだ！お気に入り～" },
+        { "id": "black", "src": "image/black_shirt.png", "thumb": "image/black_shirt.png", "message": "ブラックの服だね" },
+        { "id": "sonemi", "src": "image/sonemi_shirts.png", "thumb": "image/sonemi_shirts.png", "message": "そねみちゃんの服！？" },
+        { "id": "maid", "src": "image/maid_shirt.png", "thumb": "image/maid_shirt.png", "message": "メイド服！？" },
+        { "id": "pajama", "src": "image/pajama_shirt.png", "thumb": "image/pajama_shirt.png", "message": "パジャマだ～" },
+        { "id": "tailor", "src": "image/sailor_shirt.png", "thumb": "image/sailor_shirt.png", "message": "体操服だよ" },
+        { "id": "taiso", "src": "image/taiso_shirt.png", "thumb": "image/taiso_shirt.png", "message": "セーラー服！？" },
+        { "id": "sasama", "src": "image/sasama_shirt.png", "thumb": "image/sasama_shirt.png", "message": "反転世界の俺の服だ" }
+    ],
+    "pants": [
+        { "id": "normal", "src": "image/normal_pants.png", "thumb": "image/normal_pants.png", "message": "やっぱこれだよね～" },
+        { "id": "black", "src": "image/black_pants.png", "thumb": "image/black_pants.png", "message": "ブラックの服だね" },
+        { "id": "sailor", "src": "image/sailor_pants.png", "thumb": "image/sailor_pants.png", "message": "セーラー服のスカート！？" },
+        { "id": "taiso", "src": "image/taiso_pants.png", "thumb": "image/taiso_pants.png", "message": "体操服のズボンだよ" },
+        { "id": "sasama", "src": "image/sasama_pants.png", "thumb": "image/sasama_pants.png", "message": "反転世界の俺のズボンだ" }
+    ],
+    "shoes": [
+        { "id": "normal", "src": "image/normal_shoes.png", "thumb": "image/normal_shoes.png", "message": "やっぱこれだよね～" },
+        { "id": "bunny", "src": "image/bunny_shoes.png", "thumb": "image/bunny_shoes.png", "message": "ツヤツヤの靴だ..." },
+        { "id": "black", "src": "image/black_shoes.png", "thumb": "image/black_shoes.png", "message": "ブラックの靴だね" },
+        { "id": "sailor", "src": "image/sailor_shoes.png", "thumb": "image/sailor_shoes.png", "message": "ローファーだよ" },
+        { "id": "taiso", "src": "image/taiso_shoes.png", "thumb": "image/taiso_shoes.png", "message": "上履きだよ" }
+    ],
+    "socks": [
+        { "id": "bunny", "src": "image/bunny_socks.png", "thumb": "image/bunny_socks.png", "message": "ちょっと恥ずかしい..." },
+        { "id": "sonemi", "src": "image/sonemi_socks.png", "thumb": "image/sonemi_socks.png", "message": "ちょっと恥ずかしい..." },
+        { "id": "sailor", "src": "image/sailor_socks.png", "thumb": "image/sailor_socks.png", "message": "白い靴下だね" }
+    ],
+    "coat": [],
+    "underwear": [
+        { "id": "bunny", "src": "image/bunny_underwear.png", "thumb": "image/bunny_underwear.png", "message": "ちょっと恥ずかしい..." }
+    ],
+    "hat": [
+        { "id": "bunny", "src": "image/bunny_hat.png", "thumb": "image/bunny_hat.png", "message": "ウサギの耳...？" },
+        { "id": "sonemi", "src": "image/sonemi_hat.png", "thumb": "image/sonemi_hat.png", "message": "水玉リボン...？" },
+        { "id": "neko", "src": "image/cat_hat.png", "thumb": "image/cat_hat.png", "message": "猫耳...？" },
+        { "id": "maid", "src": "image/maid_hat.png", "thumb": "image/maid_hat.png", "message": "メイドさんのピロピロ...？" },
+        { "id": "pajama", "src": "image/pajama_hat.png", "thumb": "image/pajama_hat.png", "message": "パジャマのぼうし～" }
+    ],
+    "gloves": [
+        { "id": "bunny", "src": "image/bunny_gloves.png", "thumb": "image/bunny_gloves.png", "message": "カフスと蝶ネクタイだ" },
+        { "id": "black", "src": "image/black_gloves.png", "thumb": "image/black_gloves.png", "message": "ブラックの手袋だね" }
+    ],
+    "necklace": [
+        { "id": "neko", "src": "image/cat_necklace.png", "thumb": "image/cat_necklace.png", "message": "首輪…？" }
+    ],
+    "earrings": [],
+    "back": [
+        { "id": "neko", "src": "image/cat_back.png", "thumb": "image/cat_back.png", "message": "しっぽ…？" },
+        { "id": "pajama", "src": "image/pajama_back.png", "thumb": "image/pajama_back.png", "message": "まくらだよ～" }
+    ],
+    "background": [
+        { "id": "blacame", "src": "image/blacame_back.png", "thumb": "image/blacame_back.png", "message": "わっ！！" },
+        { "id": "mao", "src": "image/mao_background.png", "thumb": "image/mao_background.png", "message": "わっ！！" }
+    ]
+}

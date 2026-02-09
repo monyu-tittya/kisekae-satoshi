@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>衣装登録</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #293e79;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fbfbfb;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .form-section h2 {
+            color: #253d6a;
+            border-bottom: 2px solid #e0c7b3;
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #4a4a4a;
+        }
+
+        .form-group input[type="text"],
+        .form-group textarea {
+            width: calc(100% - 22px);
+            /* Padding and border */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group textarea:focus {
+            border-color: #a0a0a0;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(106, 64, 37, 0.2);
+            /* Focus glow */
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .category-item {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-item h3 {
+            margin-top: 0;
+            color: #8b5e34;
+            font-size: 1.1em;
+            border-bottom: 1px dashed #e9dccf;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px 25px;
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        button:hover {
+            background-color: #d35400;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #current-json-display {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        #current-json-display h2 {
+            margin-top: 0;
+            color: #6a4025;
+            border-bottom: 2px solid #e0c7b3;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>✨衣装登録✨</h1>
+        <p>新しい服やセットを一括登録してjsonをダウンロード</p>
+
+        <div class="form-section">
+            <h2>基本設定</h2>
+            <div class="form-group">
+                <label for="common-id">共通アイテムID (例: `christmas_satoshi`, `casual_day`):</label>
+                <input type="text" id="common-id" placeholder="半角英数字とアンダースコアで入力してね" required>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2>各アイテムの登録 (必要なものだけ入力してね)</h2>
+            <div class="category-grid" id="category-inputs">
+            </div>
+        </div>
+
+        <button id="register-and-download">登録して新しいJSONをダウンロード！</button>
+
+        <div id="message"></div>
+
+        <div id="current-json-display">
+            <h2>現在の wardrobe.json の中身 (参考)</h2>
+            <pre id="json-content">JSONファイルを読み込み中...</pre>
+        </div>
+    </div>
+
+    <script>
+        // カテゴリ定義は元ファイルからコピーしてくる
+        const categories = [
+            { id: 'preset', label: 'セット' }, // Preset tab
+            { id: 'shirt', label: 'トップス' },
+            { id: 'pants', label: 'ボトムス' },
+            { id: 'socks', label: '靴下' },
+            { id: 'shoes', label: '靴' },
+            { id: 'coat', label: 'アウター' },
+            { id: 'underwear', label: 'インナー' },
+            { id: 'hat', label: '帽子' },
+            { id: 'gloves', label: '腕飾り' },
+            { id: 'necklace', label: '首飾り' },
+            { id: 'earrings', label: '耳飾り' },
+            { id: 'back', label: '背中' },
+            { id: 'background', label: '背景' }
+        ];
+
+        let wardrobe = {}; // ロードしたJSONデータ
+
+        // 初期化処理
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadWardrobeJson();
+            renderCategoryInputs();
+            document.getElementById('register-and-download').addEventListener('click', handleRegister);
+        });
+
+        // wardrobe.json を読み込む
+        async function loadWardrobeJson() {
+            try {
+                const response = await fetch('wardrobe.json');
+                if (!response.ok) {
+                    throw new Error(`wardrobe.json の読み込みに失敗したよ: ${response.statusText}`);
+                }
+                wardrobe = await response.json();
+                document.getElementById('json-content').textContent = JSON.stringify(wardrobe, null, 2);
+            } catch (error) {
+                console.error('wardrobe.json の読み込みエラー:', error);
+                document.getElementById('json-content').textContent =
+                    `エラー: wardrobe.json を読み込めなかったよ！\nLive Serverで開いているか確認してね。\n${error.message}`;
+                // 読み込めない場合でも空のオブジェクトで初期化
+                categories.forEach(cat => {
+                    if (cat.id !== 'preset') wardrobe[cat.id] = wardrobe[cat.id] || [];
+                    else wardrobe.preset = wardrobe.preset || [];
+                });
+            }
+        }
+
+        // カテゴリごとの入力フォームを生成
+        function renderCategoryInputs() {
+            const container = document.getElementById('category-inputs');
+            container.innerHTML = ''; // 一度クリア
+            categories.forEach(cat => {
+                if (cat.id === 'preset') return; // プリセットはアイテム登録では作らない
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'category-item';
+                itemDiv.innerHTML = `
+                    <h3>${cat.label}</h3>
+                    <div class="form-group">
+                        <label for="src-${cat.id}">画像パス (例: <code>image/${cat.id}/hoge.png</code>)</label>
+                        <input type="text" id="src-${cat.id}" placeholder="image/${cat.id}/...">
+                    </div>
+                    <div class="form-group">
+                        <label for="msg-${cat.id}">俺からのメッセージ</label>
+                        <textarea id="msg-${cat.id}" rows="2" placeholder="この服を着た時のメッセージを書いてね"></textarea>
+                    </div>
+                `;
+                container.appendChild(itemDiv);
+            });
+        }
+
+        // 登録ボタンが押された時の処理
+        async function handleRegister() {
+            const commonIdInput = document.getElementById('common-id');
+            const commonId = commonIdInput.value.trim();
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = ''; // メッセージをクリア
+
+            if (!commonId) {
+                messageDiv.textContent = '共通アイテムIDを入力してね！';
+                messageDiv.style.color = '#dc3545'; // エラー色
+                commonIdInput.focus();
+                return;
+            }
+
+            const newItemsData = {}; // プリセット登録用に、今回追加したアイテムIDを保持
+            let addedAnyItem = false;
+
+            // 各カテゴリの入力を処理
+            categories.forEach(cat => {
+                if (cat.id === 'preset') return;
+
+                const srcInput = document.getElementById(`src-${cat.id}`);
+                const msgInput = document.getElementById(`msg-${cat.id}`);
+
+                const src = srcInput.value.trim();
+                const msg = msgInput.value.trim();
+
+                if (src) { // 画像パスが入力されている場合のみ追加
+                    const newItem = {
+                        id: commonId,
+                        src: src,
+                        thumb: src, // サムネイルも同じパスにする
+                        message: { satoshi: msg || "...", satoshi_sama: "..." } // デフォルトメッセージも設定
+                    };
+                    // 既存のwardrobeにアイテムを追加（カテゴリが存在しない場合は作成）
+                    if (!wardrobe[cat.id]) wardrobe[cat.id] = [];
+                    wardrobe[cat.id].push(newItem);
+                    newItemsData[cat.id] = commonId; // プリセット用に記録
+                    addedAnyItem = true;
+
+                    // 登録後、フォームをクリア
+                    srcInput.value = '';
+                    msgInput.value = '';
+                }
+            });
+
+            if (!addedAnyItem) {
+                messageDiv.textContent = '少なくとも1つのアイテムの画像パスを入力してね！';
+                messageDiv.style.color = '#dc3545';
+                return;
+            }
+
+            // プリセット登録の確認
+            if (Object.keys(newItemsData).length > 0) { // 何かしらアイテムが追加された場合のみ
+                if (confirm("このアイテムで『セット（プリセット）』も作成しますか？")) {
+                    const presetName = prompt("新しいセットの名前を入力してね！ (例: クリスマス衣装セット)");
+                    if (presetName) {
+                        // プリセットのサムネイルは、今回追加されたアイテムの最初のものの画像パスを使う
+                        const firstCategoryWithItem = Object.keys(newItemsData)[0];
+                        const thumbSrc = wardrobe[firstCategoryWithItem].find(item => item.id === commonId).src;
+
+                        const newPreset = {
+                            id: `preset_${commonId}`,
+                            label: presetName,
+                            thumb: thumbSrc,
+                            message: { satoshi: `${presetName}だよ！`, satoshi_sama: "..." },
+                            outfit: newItemsData // ここに今回追加されたアイテムのIDが入る
+                        };
+                        if (!wardrobe.preset) wardrobe.preset = [];
+                        wardrobe.preset.push(newPreset);
+                        messageDiv.textContent += '\nセットも登録したよ！';
+                    } else {
+                        messageDiv.textContent += '\nセットの登録はスキップしたよ。';
+                    }
+                }
+            }
+
+            // 更新されたJSONをダウンロード
+            downloadJson(wardrobe);
+            document.getElementById('json-content').textContent = JSON.stringify(wardrobe, null, 2); // 表示も更新
+            messageDiv.textContent = '新しいJSONファイルをダウンロードしたよ！\n今の `wardrobe.json` と入れ替えてね！';
+            messageDiv.style.color = '#28a745'; // 成功色
+            commonIdInput.value = ''; // 共通IDもクリア
+        }
+
+        // JSONデータをファイルとしてダウンロードする関数
+        function downloadJson(data) {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "wardrobe.json"); // ダウンロードファイル名
+            document.body.appendChild(downloadAnchorNode); // Firefox対策
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove(); // 不要になった要素を削除
+        }
+    </script>
+</body>
+
+</html>
