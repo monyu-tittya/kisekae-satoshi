@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>画像リネーム</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            background: #fdf6e3;
+            padding: 20px;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        #preview {
+            max-width: 100%;
+            max-height: 300px;
+            margin: 15px 0;
+            border: 2px dashed #ddd;
+            display: none;
+        }
+
+        #drop-area {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            color: #999;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #e67e22;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:disabled {
+            background: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🖼️ 画像リネーム＆保存</h1>
+    <div class="box">
+        <div id="drop-area">ここに画像をペースト (Ctrl+V)</div>
+        <img id="preview">
+
+        <div class="form-group">
+            <label>1. アイテムID</label>
+            <input type="text" id="input-id" placeholder="例: summer_casual">
+        </div>
+
+        <div class="form-group">
+            <label>2. 部位 (カテゴリ)</label>
+            <select id="input-category">
+                <option value="shirt">shirt (トップス)</option>
+                <option value="pants">pants (ボトムス)</option>
+                <option value="socks">socks (靴下)</option>
+                <option value="shoes">shoes (靴)</option>
+                <option value="coat">coat (アウター)</option>
+                <option value="underwear">underwear (インナー)</option>
+                <option value="hat">hat (帽子)</option>
+                <option value="gloves">gloves (腕飾り)</option>
+                <option value="necklace">necklace (首飾り)</option>
+                <option value="earrings">earrings (耳飾り)</option>
+                <option value="back">back (背中)</option>
+                <option value="background">background (背景)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>保存名 (自動生成):</label>
+            <code id="filename-preview">---.png</code>
+        </div>
+
+        <button id="download-btn" disabled>名前をつけて保存！</button>
+    </div>
+
+    <script>
+        const dropArea = document.getElementById('drop-area');
+        const preview = document.getElementById('preview');
+        const inputId = document.getElementById('input-id');
+        const inputCat = document.getElementById('input-category');
+        const filenamePreview = document.getElementById('filename-preview');
+        const downloadBtn = document.getElementById('download-btn');
+        let currentBlob = null;
+        // ファイル選択（input type="file"）やドロップにも対応させる
+        const handleFile = (file) => {
+            if (file && file.type.startsWith('image/')) {
+                currentBlob = file;
+                const url = URL.createObjectURL(currentBlob);
+                preview.src = url;
+                preview.style.display = 'block';
+                dropArea.textContent = 'ファイルを読み込んだよ！';
+                updatePreview();
+            }
+        };
+
+        // ドロップ操作の受付
+        dropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropArea.style.borderColor = '#e67e22';
+        });
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.style.borderColor = '#ccc';
+        });
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        // ペースト操作（既存のやつを共通関数化）
+        document.addEventListener('paste', (e) => {
+            const item = e.clipboardData.items[0];
+            if (item && item.type.indexOf('image') !== -1) {
+                handleFile(item.getAsFile());
+            }
+        });
+
+        // プレビュー文字の更新
+        function updatePreview() {
+            const id = inputId.value.trim() || 'id';
+            const cat = inputCat.value;
+            const filename = `${id}_${cat}.png`;
+            filenamePreview.textContent = filename;
+            downloadBtn.disabled = !currentBlob || !inputId.value.trim();
+        }
+
+        inputId.addEventListener('input', updatePreview);
+        inputCat.addEventListener('change', updatePreview);
+
+        // ダウンロード処理
+        downloadBtn.addEventListener('click', () => {
+            if (!currentBlob) return;
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(currentBlob);
+            link.download = filenamePreview.textContent;
+            link.click();
+        });
+    </script>
+</body>
+
+</html>
