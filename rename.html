@@ -3,108 +3,175 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>画像リネーム</title>
+    <title>ファイル名変更</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             text-align: center;
             background: #fdf6e3;
             padding: 20px;
+            color: #5a2d0a;
         }
 
         .box {
             background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
             margin: 0 auto;
+            border: 2px solid #e9dccf;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        #drop-area {
+            border: 3px dashed #ccc;
+            padding: 40px 20px;
+            color: #999;
+            cursor: pointer;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            transition: all 0.3s;
+            background: #fafafa;
+            position: relative;
+        }
+
+        #drop-area.dragover {
+            border-color: #e67e22;
+            background: #fff5eb;
+            color: #e67e22;
         }
 
         #preview {
             max-width: 100%;
             max-height: 300px;
             margin: 15px 0;
-            border: 2px dashed #ddd;
+            border-radius: 10px;
             display: none;
-        }
-
-        #drop-area {
-            border: 2px dashed #ccc;
-            padding: 20px;
-            color: #999;
-            cursor: pointer;
-            margin-bottom: 15px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .form-group {
-            margin: 10px 0;
+            margin: 15px 0;
             text-align: left;
         }
 
         label {
             display: block;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
         }
 
-        input,
+        input[type="text"],
         select {
             width: 100%;
-            padding: 8px;
+            padding: 12px;
             box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .result-box {
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #d1d9e0;
+        }
+
+        code {
+            font-size: 1.2rem;
+            color: #d35400;
+            font-weight: bold;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 10px;
         }
 
         button {
+            flex: 1;
             background: #e67e22;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            width: 100%;
-            margin-top: 10px;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #d35400;
+            transform: translateY(-2px);
         }
 
         button:disabled {
             background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        .secondary-btn {
+            background: #7f8c8d;
+            font-size: 0.8rem;
+            padding: 10px;
         }
     </style>
 </head>
 
 <body>
-    <h1>🖼️ 画像リネーム＆保存</h1>
+    <h1>🖼️ ファイル名変更するやつ</h1>
     <div class="box">
-        <div id="drop-area">ここに画像をペースト (Ctrl+V)</div>
+        <div id="drop-area">
+            ここに画像をドロップ or クリップボードから貼り付け<br>
+            <span style="font-size: 0.8rem;">(Googleフォトはダウンロード後のドロップを推奨！)</span>
+            <input type="file" id="file-input" accept="image/*">
+            <br><br>
+            <button type="button" class="secondary-btn"
+                onclick="document.getElementById('file-input').click()">ファイルを選択する</button>
+        </div>
+
         <img id="preview">
 
         <div class="form-group">
-            <label>1. アイテムID</label>
+            <label>1. アイテムID (共通のもの)</label>
             <input type="text" id="input-id" placeholder="例: summer_casual">
         </div>
 
         <div class="form-group">
-            <label>2. 部位 (カテゴリ)</label>
+            <label>2. 部位を選択</label>
             <select id="input-category">
-                <option value="shirt">shirt (トップス)</option>
-                <option value="pants">pants (ボトムス)</option>
-                <option value="socks">socks (靴下)</option>
-                <option value="shoes">shoes (靴)</option>
-                <option value="coat">coat (アウター)</option>
-                <option value="underwear">underwear (インナー)</option>
-                <option value="hat">hat (帽子)</option>
-                <option value="gloves">gloves (腕飾り)</option>
-                <option value="necklace">necklace (首飾り)</option>
-                <option value="earrings">earrings (耳飾り)</option>
-                <option value="back">back (背中)</option>
-                <option value="background">background (背景)</option>
+                <option value="shirt">トップス (shirt)</option>
+                <option value="pants">ボトムス (pants)</option>
+                <option value="socks">靴下 (socks)</option>
+                <option value="shoes">靴 (shoes)</option>
+                <option value="coat">アウター (coat)</option>
+                <option value="underwear">インナー (underwear)</option>
+                <option value="hat">帽子 (hat)</option>
+                <option value="gloves">腕飾り (gloves)</option>
+                <option value="necklace">首飾り (necklace)</option>
+                <option value="earrings">耳飾り (earrings)</option>
+                <option value="back">背中 (back)</option>
+                <option value="background">背景 (background)</option>
             </select>
         </div>
 
-        <div class="form-group">
-            <label>保存名 (自動生成):</label>
-            <code id="filename-preview">---.png</code>
+        <div class="result-box">
+            保存名: <code id="filename-preview">---.png</code>
         </div>
 
         <button id="download-btn" disabled>名前をつけて保存！</button>
@@ -112,46 +179,54 @@
 
     <script>
         const dropArea = document.getElementById('drop-area');
+        const fileInput = document.getElementById('file-input');
         const preview = document.getElementById('preview');
         const inputId = document.getElementById('input-id');
         const inputCat = document.getElementById('input-category');
         const filenamePreview = document.getElementById('filename-preview');
         const downloadBtn = document.getElementById('download-btn');
         let currentBlob = null;
-        // ファイル選択（input type="file"）やドロップにも対応させる
-        const handleFile = (file) => {
+
+        // 画像処理の共通関数
+        function processFile(file) {
             if (file && file.type.startsWith('image/')) {
                 currentBlob = file;
                 const url = URL.createObjectURL(currentBlob);
                 preview.src = url;
                 preview.style.display = 'block';
-                dropArea.textContent = 'ファイルを読み込んだよ！';
+                dropArea.style.padding = '10px';
                 updatePreview();
             }
-        };
+        }
 
-        // ドロップ操作の受付
-        dropArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropArea.style.borderColor = '#e67e22';
-        });
-        dropArea.addEventListener('dragleave', () => {
-            dropArea.style.borderColor = '#ccc';
-        });
-        dropArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            handleFile(e.dataTransfer.files[0]);
-        });
-
-        // ペースト操作（既存のやつを共通関数化）
+        // 1. ペースト (Ctrl+V)
         document.addEventListener('paste', (e) => {
             const item = e.clipboardData.items[0];
             if (item && item.type.indexOf('image') !== -1) {
-                handleFile(item.getAsFile());
+                processFile(item.getAsFile());
             }
         });
 
-        // プレビュー文字の更新
+        // 2. ドラッグ＆ドロップ
+        dropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropArea.classList.add('dragover');
+        });
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('dragover');
+        });
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropArea.classList.remove('dragover');
+            processFile(e.dataTransfer.files[0]);
+        });
+
+        // 3. ファイル選択ボタン
+        fileInput.addEventListener('change', (e) => {
+            processFile(e.target.files[0]);
+        });
+
+        // プレビュー更新
         function updatePreview() {
             const id = inputId.value.trim() || 'id';
             const cat = inputCat.value;
@@ -163,7 +238,7 @@
         inputId.addEventListener('input', updatePreview);
         inputCat.addEventListener('change', updatePreview);
 
-        // ダウンロード処理
+        // ダウンロード
         downloadBtn.addEventListener('click', () => {
             if (!currentBlob) return;
             const link = document.createElement('a');
