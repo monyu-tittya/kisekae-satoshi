@@ -23,18 +23,25 @@ const wardrobe = {
             id: 'preset_normal',
             label: 'いつもの',
             thumb: 'image/normal_shirt.png', // Use existing thumb or dedicated one
-            message: 'やっぱりこれが落ち着く～',
+            message: {
+                satoshi: 'やっぱりこれが落ち着く～',
+                satoshi_sama: '...'
+            },
             outfit: {
                 shirt: 'normal',
                 pants: 'normal',
-                shoes: 'normal'
+                shoes: 'normal',
+                background: 'blacame'
             }
         },
         {
             id: 'preset_bunny',
             label: 'バニー',
             thumb: 'image/bunny_underwear.png',
-            message: 'バニー！！！',
+            message: {
+                satoshi: 'バニー！？',
+                satoshi_sama: '...何考えてるの？'
+            },
             outfit: {
                 underwear: 'bunny',
                 socks: 'bunny',
@@ -47,7 +54,10 @@ const wardrobe = {
             id: 'preset_black',
             label: 'ブラック',
             thumb: 'image/black_shirt.png',
-            message: 'ディール！！...なんちゃって',
+            message: {
+                satoshi: 'ディール！！...なんちゃって！',
+                satoshi_sama: '...なんかイラッとするんだけど...'
+            },
             outfit: {
                 shirt: 'black',
                 pants: 'black',
@@ -60,7 +70,10 @@ const wardrobe = {
             id: 'preset_sonemi',
             label: 'そねみちゃんの服',
             thumb: 'image/sonemi_shirts.png',
-            message: '派手だな～',
+            message: {
+                satoshi: '派手だな～',
+                satoshi_sama: '...'
+            },
             outfit: {
                 shirt: 'sonemi',
                 socks: 'sonemi',
@@ -72,7 +85,10 @@ const wardrobe = {
             id: 'preset_cat',
             label: '猫の服',
             thumb: 'image/nekoTshirts_shirt.png',
-            message: 'にゃ〜ん🎵',
+            message: {
+                satoshi: 'にゃ〜ん🎵',
+                satoshi_sama: '...にゃ...'
+            },
             outfit: {
                 shirt: 'nekoTshirts',
                 back: 'neko',
@@ -84,7 +100,10 @@ const wardrobe = {
             id: 'preset_maid',
             label: 'メイド服',
             thumb: 'image/maid_shirt.png',
-            message: 'おかえりくださいご主人様！',
+            message: {
+                satoshi: 'おかえりくださいませご主人様！',
+                satoshi_sama: '...帰れ'
+            },
             outfit: {
                 shirt: 'maid',
                 hat: 'maid',
@@ -97,7 +116,10 @@ const wardrobe = {
             id: 'preset_pajama',
             label: 'パジャマ',
             thumb: 'image/pajama_shirt.png',
-            message: 'パジャマだ～',
+            message: {
+                satoshi: 'パジャマだ～',
+                satoshi_sama: '...寝る...'
+            },
             outfit: {
                 shirt: 'pajama',
                 hat: 'pajama',
@@ -108,24 +130,45 @@ const wardrobe = {
             id: 'preset_taiso',
             label: '体操服',
             thumb: 'image/taiso_shirt.png',
-            message: '体操服だ',
+            message: {
+                satoshi: '体操服だね',
+                satoshi_sama: '...'
+            },
             outfit: {
                 shirt: 'taiso',
                 pants: 'taiso',
+                socks: 'sailor',
                 shoes: 'taiso'
-                
+
             }
         },
         {
             id: 'preset_sailor',
             label: 'セーラー服',
             thumb: 'image/sailor_shirt.png',
-            message: 'セーラー服…？',
+            message: {
+                satoshi: 'セーラー服...？',
+                satoshi_sama: '...'
+            },
             outfit: {
                 shirt: 'sailor',
                 pants: 'sailor',
                 socks: 'sailor',
                 shoes: 'sailor'
+            }
+        },
+        {
+            id: 'preset_sasama',
+            label: 'さとし様',
+            thumb: 'image/sasama_shirt.png',
+            message: {
+                satoshi: '反転世界の俺じゃん...！',
+                satoshi_sama: '...落ち着く'
+            },
+            outfit: {
+                shirt: 'sasama',
+                pants: 'sasama',
+                background: 'mao'
             }
         }
     ],
@@ -136,21 +179,23 @@ const wardrobe = {
         { id: 'sonemi', src: 'image/sonemi_shirts.png', thumb: 'image/sonemi_shirts.png', message: 'そねみちゃんの服！？' },
         { id: 'maid', src: 'image/maid_shirt.png', thumb: 'image/maid_shirt.png', message: 'メイド服！？' },
         { id: 'pajama', src: 'image/pajama_shirt.png', thumb: 'image/pajama_shirt.png', message: 'パジャマだ～' },
-         { id: 'sailor', src: 'image/sailor_shirt.png', thumb: 'image/sailor_shirt.png', message: '体操服だよ' },
-         { id: 'taiso', src: 'image/taiso_shirt.png', thumb: 'image/taiso_shirt.png', message: 'セーラー服！？' }
+        { id: 'sailor', src: 'image/sailor_shirt.png', thumb: 'image/sailor_shirt.png', message: '体操服だよ' },
+        { id: 'taiso', src: 'image/taiso_shirt.png', thumb: 'image/taiso_shirt.png', message: 'セーラー服！？' },
+        { id: 'sasama', src: 'image/sasama_shirt.png', thumb: 'image/sasama_shirt.png', message: '反転世界の俺の服だ' }
     ],
     pants: [
         { id: 'normal', src: 'image/normal_pants.png', thumb: 'image/normal_pants.png', message: 'やっぱこれだよね～' },
         { id: 'black', src: 'image/black_pants.png', thumb: 'image/black_pants.png', message: 'ブラックの服だね' },
-         { id: 'sailor', src: 'image/sailor_pants.png', thumb: 'image/sailor_pants.png', message: 'セーラー服のスカート！？' },
-         { id: 'taiso', src: 'image/taiso_pants.png', thumb: 'image/taiso_pants.png', message: '体操服のズボンだよ' }
+        { id: 'sailor', src: 'image/sailor_pants.png', thumb: 'image/sailor_pants.png', message: 'セーラー服のスカート！？' },
+        { id: 'taiso', src: 'image/taiso_pants.png', thumb: 'image/taiso_pants.png', message: '体操服のズボンだよ' },
+        { id: 'sasama', src: 'image/sasama_pants.png', thumb: 'image/sasama_pants.png', message: '反転世界の俺のズボンだ' }
     ],
     shoes: [
         { id: 'normal', src: 'image/normal_shoes.png', thumb: 'image/normal_shoes.png', message: 'やっぱこれだよね～' },
         { id: 'bunny', src: 'image/bunny_shoes.png', thumb: 'image/bunny_shoes.png', message: 'ツヤツヤの靴だ...' },
         { id: 'black', src: 'image/black_shoes.png', thumb: 'image/black_shoes.png', message: 'ブラックの靴だね' },
-         { id: 'sailor', src: 'image/sailor_shoes.png', thumb: 'image/sailor_shoes.png', message: 'ローファーだよ' },
-         { id: 'taiso', src: 'image/taiso_shoes.png', thumb: 'image/taiso_shoes.png', message: '上履きだよ' }
+        { id: 'sailor', src: 'image/sailor_shoes.png', thumb: 'image/sailor_shoes.png', message: 'ローファーだよ' },
+        { id: 'taiso', src: 'image/taiso_shoes.png', thumb: 'image/taiso_shoes.png', message: '上履きだよ' }
     ],
     socks: [
         { id: 'bunny', src: 'image/bunny_socks.png', thumb: 'image/bunny_socks.png', message: 'ちょっと恥ずかしい...' },
@@ -178,27 +223,112 @@ const wardrobe = {
     ],
     earrings: [],
     back: [
-         { id: 'neko', src: 'image/cat_back.png', thumb: 'image/cat_back.png', message: 'しっぽ…？' },
+        { id: 'neko', src: 'image/cat_back.png', thumb: 'image/cat_back.png', message: 'しっぽ…？' },
         { id: 'pajama', src: 'image/pajama_back.png', thumb: 'image/pajama_back.png', message: 'まくらだよ～' }
     ],
     background: [
-        { id: 'blacame', src: 'image/blacame_back.png', thumb: 'image/blacame_back.png', message: 'わっ！！' }
+        { id: 'blacame', src: 'image/blacame_back.png', thumb: 'image/blacame_back.png', message: 'わっ！！' },
+        { id: 'mao', src: 'image/mao_background.png', thumb: 'image/mao_background.png', message: 'わっ！！' }
     ]
 };
 
-// Emotion Config
+// Character & Emotion Configuration
 const emotions = [
-    { name: 'joy', eyeSrc: 'image/eye_joy.png', mouthSrc: 'image/mouth_joy.png', icon: '😊' },
-    { name: 'anger', eyeSrc: 'image/eye_anger.png', mouthSrc: 'image/mouth_anger.png', icon: '😠' },
-    { name: 'sorrow', eyeSrc: 'image/eye_sorrow.png', mouthSrc: 'image/mouth_sorrow.png', icon: '😢' },
-    { name: 'surprise', eyeSrc: 'image/eye_surprise.png', mouthSrc: 'image/mouth_surprise.png', icon: '😮' },
-    { name: 'sleepy', eyeSrc: 'image/eye_blink.png', mouthSrc: 'image/mouth_surprise.png', icon: '😴' }
+    { name: 'joy', icon: '😊' },
+    { name: 'anger', icon: '😠' },
+    { name: 'sorrow', icon: '😢' },
+    { name: 'surprise', icon: '😮' },
+    { name: 'sleepy', icon: '😴' }
 ];
 
+const characterSettings = {
+    satoshi: {
+        eyes: {
+            joy: 'image/eye_joy.png',
+            anger: 'image/eye_anger.png',
+            sorrow: 'image/eye_sorrow.png',
+            surprise: 'image/eye_surprise.png',
+            sleepy: 'image/eye_blink.png',
+            blink: 'image/eye_blink.png'
+        },
+        mouths: {
+            joy: 'image/mouth_joy.png',
+            anger: 'image/mouth_anger.png',
+            sorrow: 'image/mouth_sorrow.png',
+            surprise: 'image/mouth_surprise.png',
+            sleepy: 'image/mouth_joy.png'
+        },
+        soliloquies: [
+            'まだ決まらないの？',
+            '新しい服、欲しいなぁ...',
+            '暇だなぁ...',
+            'お腹すいた...おやつないの？',
+            '次は何着せる気...？',
+            '...さーと...さーと...しーさー♪',
+            'えへへ、似合う？',
+            'だいなごんあずき...'
+        ],
+        touchReactions: {
+            head_joy: ['えへへ、くすぐったいよ〜', 'いいこいいこしてくれるの？', 'んふふ、こしょばい...', 'むふ～...'],
+            head_anger: 'もう...撫ですぎじゃない...？',
+            body_surprise: ['わっ！そこはダメだよ〜', 'ひゃっ！びっくりした', 'もー、どこ触ってるの？', 'ひゃん！！！'],
+            body_anger: 'もう！やめてよ～～～！'
+        },
+        outfitReactions: {
+            equip: '着替えたよ！',
+            unequip: '脱いだよ！',
+            preset: '変身！',
+            removeAll: 'ぎょえぴ～！'
+        }
+    },
+    satoshi_sama: {
+        eyes: {
+            joy: 'image/eye_joy_sama.png',
+            anger: 'image/eye_joy_sama.png',
+            sorrow: 'image/eye_joy_sama.png',
+            surprise: 'image/eye_joy_sama.png',
+            sleepy: 'image/eye_blink.png',
+            blink: 'image/eye_blink.png'
+        },
+        mouths: {
+            joy: 'image/mouth_anger.png',
+            anger: 'image/mouth_anger.png',
+            sorrow: 'image/mouth_anger.png',
+            surprise: 'image/mouth_anger.png',
+            sleepy: 'image/mouth_anger.png'
+        },
+        soliloquies: [
+            '...バカなの？',
+            '...さっさと選んでよ...',
+            '退屈...',
+            '服なんてどれも同じでしょ...',
+            '...はぁ',
+            '......'
+        ],
+        touchReactions: {
+            head_joy: ['...気安く触れないでくれる？', '...ふん...', '...'],
+            head_anger: '...調子に乗るな',
+            body_surprise: ['...！', '...おい', '...死にたいの？'],
+            body_anger: '消え失せろ。'
+        },
+        outfitReactions: {
+            equip: '...',
+            unequip: '...',
+            preset: '...',
+            removeAll: '...何をさせる気？'
+        }
+    }
+};
+
 // State
-let currentOutfit = {}; // { shirt: 'shirt1', pants: null, ... }
-let currentCategory = 'preset'; // Default tab
+let outfitData = {
+    satoshi: { shirt: 'normal', pants: 'normal', shoes: 'normal' },
+    satoshi_sama: { shirt: 'sasama', pants: 'sasama', background: 'mao' }
+};
+let currentOutfit = {};
+let currentCategory = 'preset';
 let currentEmotionIndex = 0;
+let currentCharacterMode = 'satoshi'; // 'satoshi' or 'satoshi_sama'
 let currentPage = 0;
 const itemsPerPage = 3;
 let blinkInterval;
@@ -237,21 +367,26 @@ function init() {
         stageLayers[cat.id] = document.getElementById(`layer-${cat.id}`);
     });
 
-    // Load saved outfit or set default
-    const savedOutfit = loadOutfit();
-    if (savedOutfit) {
-        currentOutfit = savedOutfit;
-    } else {
-        // Default Outfit
-        const defaultPreset = wardrobe.preset.find(p => p.id === 'preset_normal');
-        if (defaultPreset) {
-            currentOutfit = { ...defaultPreset.outfit, preset: defaultPreset.id };
+    // Load saved data
+    const saved = loadOutfit();
+    if (saved) {
+        if (saved.outfits) {
+            // New format: { mode: '...', outfits: { ... } }
+            outfitData = saved.outfits;
+            // Ensure defaults if missing keys (partial save?)
+            if (!outfitData.satoshi) outfitData.satoshi = { shirt: 'normal' };
+            if (!outfitData.satoshi_sama) outfitData.satoshi_sama = { shirt: 'sasama' };
+
+            currentCharacterMode = saved.mode || 'satoshi';
         } else {
-            currentOutfit = {
-                shirt: 'nekoTshirts'
-            };
+            // Old format: just the outfit object
+            // Migrate old data to 'satoshi' slot
+            outfitData.satoshi = saved;
         }
     }
+
+    // Set current outfit
+    currentOutfit = outfitData[currentCharacterMode];
 
     // Apply Outfit to Layers
     applyOutfit();
@@ -279,6 +414,7 @@ const touchCounts = {
 function handleTouch(area) {
     touchCounts[area]++;
     const count = touchCounts[area];
+    const settings = characterSettings[currentCharacterMode];
 
     const savedEmotionIndex = currentEmotionIndex;
 
@@ -297,7 +433,7 @@ function handleTouch(area) {
             if (angerIndex !== -1) {
                 currentEmotionIndex = angerIndex;
                 updateFace();
-                showSpeech('もう...撫ですぎじゃない...？');
+                showSpeech(settings.touchReactions.head_anger);
             }
             touchCounts.head = 0; // Reset after angry
             resetFace();
@@ -307,7 +443,7 @@ function handleTouch(area) {
             if (joyIndex !== -1) {
                 currentEmotionIndex = joyIndex;
                 updateFace();
-                const messages = ['えへへ、くすぐったいよ〜', 'いいこいいこしてくれるの？', 'んふふ、こしょばい...', 'むふ～...'];
+                const messages = settings.touchReactions.head_joy;
                 showSpeech(messages[Math.floor(Math.random() * messages.length)]);
             }
             resetFace();
@@ -319,7 +455,7 @@ function handleTouch(area) {
             if (angerIndex !== -1) {
                 currentEmotionIndex = angerIndex;
                 updateFace();
-                showSpeech('もう！やめてよ～～～！');
+                showSpeech(settings.touchReactions.body_anger);
             }
             touchCounts.body = 0;
             resetFace();
@@ -329,7 +465,7 @@ function handleTouch(area) {
             if (surpriseIndex !== -1) {
                 currentEmotionIndex = surpriseIndex;
                 updateFace();
-                const messages = ['わっ！そこはダメだよ〜', 'ひゃっ！びっくりした', 'もー、どこ触ってるの？', 'ひゃん！！！'];
+                const messages = settings.touchReactions.body_surprise;
                 showSpeech(messages[Math.floor(Math.random() * messages.length)]);
             }
             blink();
@@ -347,7 +483,8 @@ function startSoliloquyLoop() {
     setInterval(() => {
         // Only speak if bubble is not currently active (to avoid overwriting user interaction)
         if (!speechBubble.classList.contains('active')) {
-            const text = soliloquies[Math.floor(Math.random() * soliloquies.length)];
+            const list = characterSettings[currentCharacterMode].soliloquies;
+            const text = list[Math.floor(Math.random() * list.length)];
             showSpeech(text);
         }
     }, 60000);
@@ -366,22 +503,41 @@ function loadOutfit() {
 
 function saveOutfit() {
     try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(currentOutfit));
+        // Sync current outfit to data store before saving
+        outfitData[currentCharacterMode] = currentOutfit;
+
+        const saveData = {
+            mode: currentCharacterMode,
+            outfits: outfitData
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(saveData));
     } catch (e) {
         console.error('Failed to save outfit', e);
     }
 }
 
 function applyOutfit() {
-    Object.keys(currentOutfit).forEach(catId => {
+    categories.forEach(cat => {
+        const catId = cat.id;
         const itemId = currentOutfit[catId];
-        const categoryItems = wardrobe[catId];
-        // Find item in wardrobe to get src
-        const item = categoryItems ? categoryItems.find(i => i.id === itemId) : null;
+        const layer = stageLayers[catId];
 
-        if (item && stageLayers[catId]) {
-            stageLayers[catId].src = item.src;
-            stageLayers[catId].style.display = 'block';
+        if (!layer) return;
+
+        if (itemId) {
+            // Equip
+            const catItems = wardrobe[catId];
+            const item = catItems ? catItems.find(i => i.id === itemId) : null;
+            if (item) {
+                layer.src = item.src;
+                layer.style.display = 'block';
+            }
+        } else {
+            // Unequip / Clear
+            // Important: Don't clear if it's not managed by outfit?
+            // `categories` defines all managed layers. So safe to clear.
+            layer.src = '';
+            layer.style.display = 'none';
         }
     });
 }
@@ -400,10 +556,11 @@ function startBlinking() {
 }
 
 function blink() {
+    const settings = characterSettings[currentCharacterMode];
     const currentEmotion = emotions[currentEmotionIndex];
-    eyeLayer.src = 'image/eye_blink.png';
+    eyeLayer.src = settings.eyes.blink;
     setTimeout(() => {
-        eyeLayer.src = currentEmotion.eyeSrc;
+        eyeLayer.src = settings.eyes[currentEmotion.name];
     }, 150);
 }
 
@@ -412,33 +569,79 @@ emotionBtn.addEventListener('click', () => {
     currentEmotionIndex = (currentEmotionIndex + 1) % emotions.length;
     updateFace();
     emotionBtn.textContent = emotions[currentEmotionIndex].icon;
-    showSpeech(`気分は${emotions[currentEmotionIndex].icon}だよ！`);
+    showSpeech(`${emotions[currentEmotionIndex].icon}`);
 });
 
-// Background Color Logic
-const bgColorBtn = document.getElementById('bg-color-btn');
-const bgColorPicker = document.getElementById('bg-color-picker');
+// Character Switch Logic
+const charSwitchBtn = document.getElementById('char-switch-btn');
 
-bgColorBtn.addEventListener('click', () => {
-    bgColorPicker.click();
-}, false);
+charSwitchBtn.addEventListener('click', () => {
+    // Save current state
+    outfitData[currentCharacterMode] = currentOutfit;
 
-bgColorPicker.addEventListener('input', (e) => {
-    document.body.style.background = e.target.value;
-});
+    // Toggle Mode
+    currentCharacterMode = currentCharacterMode === 'satoshi' ? 'satoshi_sama' : 'satoshi';
 
-bgColorPicker.addEventListener('change', (e) => {
-    document.body.style.background = e.target.value;
+    // Load new state
+    currentOutfit = outfitData[currentCharacterMode];
+    applyOutfit();
+    renderMenu();
+    saveOutfit();
+
+    // Update visuals
+    updateFace();
+
+    // Notification
+    const name = currentCharacterMode === 'satoshi_sama' ? '僕だ' : '俺だよ';
+    showSpeech(`${name}`);
 });
 
 // Screenshot Mode logic
 const cameraBtn = document.getElementById('camera-btn');
+let cameraTimer;
+let isLongPress = false;
 
-cameraBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevent immediate close
-    document.body.classList.add('screenshot-mode');
-    showSpeech('撮影モード！');
-    createBokehEffect();
+cameraBtn.addEventListener('mousedown', (e) => {
+    e.stopPropagation();
+    isLongPress = false;
+    cameraTimer = setTimeout(() => {
+        isLongPress = true;
+        startTwinMode();
+    }, 1000); // 1 second hold
+});
+
+cameraBtn.addEventListener('mouseup', (e) => {
+    e.stopPropagation();
+    clearTimeout(cameraTimer);
+    if (!isLongPress) {
+        // Normal Click Logic
+        document.body.classList.add('screenshot-mode');
+        showSpeech('撮影モード！');
+        createBokehEffect();
+    }
+});
+
+cameraBtn.addEventListener('mouseleave', () => clearTimeout(cameraTimer));
+
+// Touch support
+cameraBtn.addEventListener('touchstart', (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    isLongPress = false;
+    cameraTimer = setTimeout(() => {
+        isLongPress = true;
+        startTwinMode();
+    }, 1000);
+});
+cameraBtn.addEventListener('touchend', (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    clearTimeout(cameraTimer);
+    if (!isLongPress) {
+        document.body.classList.add('screenshot-mode');
+        showSpeech('撮影モード！');
+        createBokehEffect();
+    }
 });
 
 // Remove All Logic
@@ -463,7 +666,7 @@ resetBtn.addEventListener('click', () => {
         });
 
         // Face/Base remains (managed separately or static)
-        showSpeech('ひゃっ...///');
+        showSpeech(characterSettings[currentCharacterMode].outfitReactions.removeAll);
         triggerSmokeEffect();
         saveOutfit();
         renderMenu();
@@ -504,28 +707,125 @@ function createBokehEffect() {
         // Slight color tint for bokeh
         if (!isCross) {
             const tint = Math.random() > 0.7 ? '#ffeef2' : '#ffffff';
-            // Keep background transparent mostly as user requested borders, but maybe faint fill?
-            // User set background: transparent in CSS, so maybe we stick to that or add very light fill
-            // Let's respect CSS class mostly, but maybe add slight variation via style if needed.
-            // For now, rely on CSS.
         }
 
         container.appendChild(p);
     }
 }
 
-// Exit mode on click anywhere
+// Twin Mode Logic
+function startTwinMode() {
+    // Create Overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'twin-overlay';
+
+    // Get outfits
+    const satoshiOutfit = outfitData.satoshi || { shirt: 'normal', pants: 'normal' };
+    const samaOutfit = outfitData.satoshi_sama || { shirt: 'sasama', pants: 'sasama' };
+
+    // Satoshi (Left) - with their own background
+    const char1 = renderStaticCharacter('satoshi', satoshiOutfit);
+    overlay.appendChild(char1);
+
+    // Satoshi Sama (Right) - with their own background
+    const char2 = renderStaticCharacter('satoshi_sama', samaOutfit);
+    overlay.appendChild(char2);
+
+    // Close Handler
+    overlay.addEventListener('click', () => {
+        overlay.remove();
+        showSpeech('隠しモード終了！');
+    });
+
+    document.body.appendChild(overlay);
+    showSpeech('ふたりはプリ○ュア！？');
+
+    // Effects
+    createTwinBokeh(overlay);
+}
+
+function renderStaticCharacter(mode, outfit) {
+    const wrapper = document.createElement('div');
+    wrapper.className = `twin-char ${mode}`; // .satoshi or .satoshi_sama
+
+    // Add background for this character
+    if (outfit.background && wardrobe.background) {
+        const bgItem = wardrobe.background.find(i => i.id === outfit.background);
+        if (bgItem) {
+            const bgImg = document.createElement('img');
+            bgImg.src = bgItem.src;
+            bgImg.className = 'char-background';
+            wrapper.appendChild(bgImg);
+        }
+    }
+
+    // Base Body
+    const base = document.createElement('img');
+    base.src = 'image/base.PNG';
+    base.className = 'static-layer base';
+    wrapper.appendChild(base);
+
+    // Face (Joy for photo)
+    const settings = characterSettings[mode];
+    const eyes = document.createElement('img');
+    eyes.src = settings.eyes.joy;
+    eyes.className = 'static-layer face';
+    wrapper.appendChild(eyes);
+
+    const mouth = document.createElement('img');
+    mouth.src = settings.mouths.joy;
+    mouth.className = 'static-layer face';
+    wrapper.appendChild(mouth);
+
+    // Clothes
+    categories.forEach((cat, index) => {
+        if (cat.id === 'preset' || cat.id === 'background') return;
+
+        const itemId = outfit[cat.id];
+        if (itemId && wardrobe[cat.id]) {
+            const item = wardrobe[cat.id].find(i => i.id === itemId);
+            if (item) {
+                const img = document.createElement('img');
+                img.src = item.src;
+                img.className = `static-layer layer-${cat.id}`;
+                img.style.zIndex = 10 + index;
+                wrapper.appendChild(img);
+            }
+        }
+    });
+
+    return wrapper;
+}
+
+function createTwinBokeh(container) {
+    // Reuse logic or simple append
+    for (let i = 0; i < 50; i++) {
+        const p = document.createElement('div');
+        p.className = Math.random() > 0.5 ? 'bokeh-particle' : 'sparkle-cross';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.width = (Math.random() * 30 + 10) + 'px';
+        p.style.height = p.style.width;
+        p.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        p.style.position = 'absolute';
+        p.style.mixBlendMode = 'screen';
+        container.appendChild(p);
+    }
+}
+
+// Exit screenshot mode on click anywhere
 document.addEventListener('click', (e) => {
     if (document.body.classList.contains('screenshot-mode')) {
         document.body.classList.remove('screenshot-mode');
-        showSpeech('戻ったよ');
     }
 });
 
 function updateFace() {
-    const emotion = emotions[currentEmotionIndex];
-    eyeLayer.src = emotion.eyeSrc;
-    mouthLayer.src = emotion.mouthSrc;
+    const settings = characterSettings[currentCharacterMode];
+    const emotionName = emotions[currentEmotionIndex].name;
+
+    eyeLayer.src = settings.eyes[emotionName];
+    mouthLayer.src = settings.mouths[emotionName];
 }
 
 // Tab Logic
@@ -580,6 +880,15 @@ function renderMenu() {
 }
 
 function toggleItem(item) {
+    const settings = characterSettings[currentCharacterMode];
+
+    // Helper to get message
+    const getMessage = (msgData, defaultType) => {
+        if (!msgData) return settings.outfitReactions[defaultType];
+        if (typeof msgData === 'string') return msgData; // Fallback for legacy string
+        return msgData[currentCharacterMode] || settings.outfitReactions[defaultType];
+    };
+
     if (currentCategory === 'preset') {
         if (item.outfit) {
             // Save preset ID for highlighting
@@ -588,10 +897,8 @@ function toggleItem(item) {
 
             // We need to iterate over ALL categories to ensure we unequip things not in the preset
             categories.forEach(cat => {
-                // Skip 'preset' tab itself and 'background' (usually background persists unless specified?
-                // Let's assume background persists for now, or we can clear it if we want strict presets.
-                // User said "previous clothes remain", so likely refers to clothing.
-                if (cat.id === 'preset' || cat.id === 'background') return;
+                // Skip 'preset' tab itself
+                if (cat.id === 'preset') return;
 
                 const newItemId = item.outfit[cat.id];
                 const layer = stageLayers[cat.id];
@@ -624,7 +931,7 @@ function toggleItem(item) {
             });
 
             currentOutfit.preset = newPresetId;
-            showSpeech(item.message || '変身！');
+            showSpeech(getMessage(item.message, 'preset'));
             triggerSmokeEffect();
             saveOutfit();
             renderMenu(); // Update highlight
@@ -642,7 +949,7 @@ function toggleItem(item) {
         delete currentOutfit[currentCategory];
         layer.src = '';
         layer.style.display = 'none';
-        showSpeech('脱いだよ！');
+        showSpeech(settings.outfitReactions.unequip);
     } else {
         // Equip
         currentOutfit[currentCategory] = item.id;
@@ -654,7 +961,7 @@ function toggleItem(item) {
         void layer.offsetWidth; // Trigger reflow
         layer.classList.add('pop-in');
 
-        showSpeech(item.message || '着替えたよ！');
+        showSpeech(getMessage(item.message, 'equip'));
     }
 
     renderMenu(); // Re-render to update border selection
