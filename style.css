@@ -253,7 +253,7 @@ body {
     z-index: 50;
     /* Above layers, below bubble */
     cursor: pointer;
-    /* background: rgba(255, 0, 0, 0.2); Debug visualization */
+    /* background: rgba(255, 0, 0, 0.2); */
 }
 
 /* Speech Bubble */

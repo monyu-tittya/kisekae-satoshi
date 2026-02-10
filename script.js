@@ -58,8 +58,12 @@ const characterSettings = {
         touchReactions: {
             head_joy: ['えへへ、くすぐったいよ〜', 'いいこいいこしてくれるの？', 'んふふ、こしょばい...', 'むふ～...'],
             head_anger: 'もう...撫ですぎじゃない...？',
-            body_surprise: ['わっ！そこはダメだよ〜', 'ひゃっ！びっくりした', 'もー、どこ触ってるの？', 'ひゃん！！！'],
-            body_anger: 'もう！やめてよ～～～！'
+            body_surprise: ['なになに？', '撫でても何も出ないよ？', 'く、くすぐったいよ～...', '...ぐふふふ！こしょばい！'],
+            body_anger: 'もう！やめてよ～～～！',
+            heso_surprise: ['おへそは触らないで～！', 'おへそくすぐったいよ～～～！！！', 'おへそだめ～～～！！！'],
+            heso_anger: 'もう！おへそはやだってば～～～！',
+            secret_surprise: ['そこはダメ～～～！！！', 'ダメだってば...！！！', '...ちょっ ... ！！！'],
+            secret_anger: 'だからそこはダメ～～～！！！'
         },
         outfitReactions: {
             equip: '着替えたよ！',
@@ -93,10 +97,14 @@ const characterSettings = {
             '......'
         ],
         touchReactions: {
-            head_joy: ['...気安く触れないでくれる？', '...ふん...', '...'],
+            head_joy: ['...気安く触れないでくれる？', '...ふん...', '...触らないで'],
             head_anger: '...調子に乗るな',
-            body_surprise: ['...！', '...おい', '...死にたいの？'],
-            body_anger: '消え失せろ。'
+            body_surprise: ['...気安く触れないでくれる？', '...ふん...', '...！', '...触らないで'],
+            body_anger: '消え失せろ。',
+            heso_surprise: ['...！', '...おい', '...死にたいの？', '...やめてくれる？'],
+            heso_anger: 'あのさ、嫌がってるの分からない？',
+            secret_surprise: ['...っ！', '...ゃ...！', '...！', '...や、やめ...！'],
+            secret_anger: '後で◯す...！'
         },
         outfitReactions: {
             equip: '...',
@@ -202,11 +210,15 @@ async function init() {
 // Interaction Logic (Nade-nade)
 const hitboxHead = document.getElementById('hitbox-head');
 const hitboxBody = document.getElementById('hitbox-body');
+const hitboxHeso = document.getElementById('hitbox-heso');
+const hitboxSecret = document.getElementById('hitbox-secret');
 
 // Keep counts separate so they don't interfere
 const touchCounts = {
     head: 0,
-    body: 0
+    body: 0,
+    heso: 0,
+    secret: 0
 };
 
 function handleTouch(area) {
@@ -269,11 +281,59 @@ function handleTouch(area) {
             blink();
             setTimeout(blink, 200);
         }
+    } else if (area === 'heso') {
+        if (count >= 5) {
+            // Angry/Annoyed reaction
+            const angerIndex = emotions.findIndex(e => e.name === 'anger');
+            if (angerIndex !== -1) {
+                currentEmotionIndex = angerIndex;
+                updateFace();
+                showSpeech(settings.touchReactions.heso_anger);
+            }
+            touchCounts.heso = 0;
+            resetFace();
+        } else {
+            // Surprise reaction
+            const surpriseIndex = emotions.findIndex(e => e.name === 'surprise');
+            if (surpriseIndex !== -1) {
+                currentEmotionIndex = surpriseIndex;
+                updateFace();
+                const messages = settings.touchReactions.heso_surprise;
+                showSpeech(messages[Math.floor(Math.random() * messages.length)]);
+            }
+            blink();
+            setTimeout(blink, 200);
+        }
+    } else if (area === 'secret') {
+        if (count >= 5) {
+            // Angry/Annoyed reaction
+            const angerIndex = emotions.findIndex(e => e.name === 'anger');
+            if (angerIndex !== -1) {
+                currentEmotionIndex = angerIndex;
+                updateFace();
+                showSpeech(settings.touchReactions.secret_anger);
+            }
+            touchCounts.secret = 0;
+            resetFace();
+        } else {
+            // Surprise reaction
+            const surpriseIndex = emotions.findIndex(e => e.name === 'surprise');
+            if (surpriseIndex !== -1) {
+                currentEmotionIndex = surpriseIndex;
+                updateFace();
+                const messages = settings.touchReactions.secret_surprise;
+                showSpeech(messages[Math.floor(Math.random() * messages.length)]);
+            }
+            blink();
+            setTimeout(blink, 200);
+        }
     }
 }
 
 hitboxHead.addEventListener('click', () => handleTouch('head'));
 hitboxBody.addEventListener('click', () => handleTouch('body'));
+hitboxHeso.addEventListener('click', () => handleTouch('heso'));
+hitboxSecret.addEventListener('click', () => handleTouch('secret'));
 
 // Soliloquy Logic
 function startSoliloquyLoop() {
