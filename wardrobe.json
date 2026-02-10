@@ -332,6 +332,15 @@
       "src": "image/bunny_underwear.png",
       "thumb": "image/bunny_underwear.png",
       "message": "ちょっと恥ずかしい..."
+    },
+    {
+      "id": "sukumizu",
+      "src": "image/sukumizu_underwear.png",
+      "thumb": "image/sukumizu_underwear.png",
+      "message": {
+        "satoshi": "スク水！？",
+        "satoshi_sama": "..."
+      }
     }
   ],
   "hat": [
