@@ -171,7 +171,7 @@
       "label": "レオ博士",
       "thumb": "image/leo_shirt.png",
       "message": {
-        "satoshi": "レオ博士だよ！",
+        "satoshi": "レオ博士の服だー！",
         "satoshi_sama": "..."
       },
       "outfit": {
@@ -188,7 +188,7 @@
       "label": "タロー",
       "thumb": "image/taro_shirt.png",
       "message": {
-        "satoshi": "タローだよ！",
+        "satoshi": "タローさんの服だー！",
         "satoshi_sama": "..."
       },
       "outfit": {
