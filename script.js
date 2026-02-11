@@ -637,12 +637,16 @@ function renderStaticCharacter(mode, outfit) {
     // Define explicit z-index for each layer to match main app
     const layerZIndex = {
         back: 1,
-        underwear: 9,
         socks: 10,
-        pants: 20,
-        shirt: 30,
+        underwear: 20,
+        gloves: 30,
         shoes: 40,
-        hat: 50
+        pants: 50,
+        shirt: 60,
+        coat: 70,
+        necklace: 80,
+        earrings: 90,
+        hat: 100
     };
 
     categories.forEach((cat, index) => {
