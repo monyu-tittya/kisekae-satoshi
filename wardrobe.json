@@ -165,6 +165,23 @@
         "gloves": "bsama",
         "necklace": "bsama"
       }
+    },
+    {
+      "id": "preset_leo",
+      "label": "レオ博士",
+      "thumb": "image/leo_shirt.png",
+      "message": {
+        "satoshi": "レオ博士だよ！",
+        "satoshi_sama": "..."
+      },
+      "outfit": {
+        "shirt": "leo",
+        "pants": "leo",
+        "shoes": "leo",
+        "coat": "leo",
+        "hat": "leo",
+        "gloves": "leo"
+      }
     }
   ],
   "shirt": [
@@ -230,6 +247,15 @@
         "satoshi": "上級天使の服だ！",
         "satoshi_sama": "..."
       }
+    },
+    {
+      "id": "leo",
+      "src": "image/leo_shirt.png",
+      "thumb": "image/leo_shirt.png",
+      "message": {
+        "satoshi": "レオ博士のTシャツ！",
+        "satoshi_sama": "..."
+      }
     }
   ],
   "pants": [
@@ -262,6 +288,15 @@
       "src": "image/sasama_pants.png",
       "thumb": "image/sasama_pants.png",
       "message": "反転世界の俺のズボンだ"
+    },
+    {
+      "id": "leo",
+      "src": "image/leo_pants.png",
+      "thumb": "image/leo_pants.png",
+      "message": {
+        "satoshi": "レオ博士のズボン！",
+        "satoshi_sama": "..."
+      }
     }
   ],
   "shoes": [
@@ -294,6 +329,15 @@
       "src": "image/taiso_shoes.png",
       "thumb": "image/taiso_shoes.png",
       "message": "上履きだよ"
+    },
+    {
+      "id": "leo",
+      "src": "image/leo_shoes.png",
+      "thumb": "image/leo_shoes.png",
+      "message": {
+        "satoshi": "レオ博士の靴！",
+        "satoshi_sama": "..."
+      }
     }
   ],
   "socks": [
@@ -325,7 +369,17 @@
       }
     }
   ],
-  "coat": [],
+  "coat": [
+    {
+      "id": "leo",
+      "src": "image/leo_coat.png",
+      "thumb": "image/leo_coat.png",
+      "message": {
+        "satoshi": "レオ博士の白衣！",
+        "satoshi_sama": "..."
+      }
+    }
+  ],
   "underwear": [
     {
       "id": "bunny",
@@ -373,6 +427,15 @@
       "src": "image/pajama_hat.png",
       "thumb": "image/pajama_hat.png",
       "message": "パジャマのぼうし～"
+    },
+    {
+      "id": "leo",
+      "src": "image/leo_hat.png",
+      "thumb": "image/leo_hat.png",
+      "message": {
+        "satoshi": "レオ博士のゴーグル！",
+        "satoshi_sama": "..."
+      }
     }
   ],
   "gloves": [
@@ -394,6 +457,15 @@
       "thumb": "image/bsama_gloves.png",
       "message": {
         "satoshi": "金ピカ！",
+        "satoshi_sama": "..."
+      }
+    },
+    {
+      "id": "leo",
+      "src": "image/leo_gloves.png",
+      "thumb": "image/leo_gloves.png",
+      "message": {
+        "satoshi": "レオ博士の手袋！",
         "satoshi_sama": "..."
       }
     }
