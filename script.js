@@ -143,17 +143,6 @@ const eyeLayer = document.getElementById('layer-eyes');   // Specific access for
 // Local Storage Key
 const STORAGE_KEY = 'kisekae_outfit';
 
-// Soliloquy Config
-const soliloquies = [
-    'まだ決まらないの？',
-    '新しい服、欲しいなぁ...',
-    '暇だなぁ...',
-    'お腹すいた...おやつないの？',
-    '次は何着せる気...？',
-    '...さーと...さーと...しーさー♪',
-    'えへへ、似合う？',
-    'だいなごんあずき...'
-];
 
 // Initialization
 async function init() {
