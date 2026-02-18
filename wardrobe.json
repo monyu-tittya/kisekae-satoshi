@@ -239,16 +239,16 @@
       "message": "パジャマだ～"
     },
     {
-      "id": "tailor",
+      "id": "sailor",
       "src": "image/sailor_shirt.png",
       "thumb": "image/sailor_shirt.png",
-      "message": "体操服だよ"
+      "message": "セーラー服！？"
     },
     {
       "id": "taiso",
       "src": "image/taiso_shirt.png",
       "thumb": "image/taiso_shirt.png",
-      "message": "セーラー服！？"
+      "message": "体操服だよ"
     },
     {
       "id": "sasama",

@@ -124,8 +124,6 @@ let currentOutfit = {};
 let currentCategory = 'preset';
 let currentEmotionIndex = 0;
 let currentCharacterMode = 'satoshi'; // 'satoshi' or 'satoshi_sama'
-let currentPage = 0;
-const itemsPerPage = 3;
 let blinkInterval;
 
 // DOM Elements
@@ -135,8 +133,6 @@ const speechText = document.getElementById('speech-text');
 const emotionBtn = document.getElementById('emotion-btn');
 const costumeGrid = document.getElementById('costume-grid');
 const tabsContainer = document.getElementById('category-tabs');
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
 const mouthLayer = document.getElementById('layer-mouth'); // Specific access for emotion
 const eyeLayer = document.getElementById('layer-eyes');   // Specific access for emotion
 
@@ -190,7 +186,6 @@ async function init() {
     renderMenu();
     startBlinking();
     startSoliloquyLoop(); // Start auto-speech
-    updatePaginationButtons();
 
     // Set initial face
     updateFace();
@@ -702,22 +697,16 @@ function renderTabs() {
 
 function switchTab(categoryId) {
     currentCategory = categoryId;
-    currentPage = 0;
     renderTabs(); // Update active state
     renderMenu();
-    updatePaginationButtons();
 }
 
 // Menu & Pagination
 function renderMenu() {
     costumeGrid.innerHTML = '';
 
-    // Get items for current category, default to empty array
+    // Get all items
     const items = wardrobe[currentCategory] || [];
-
-    const start = currentPage * itemsPerPage;
-    const end = start + itemsPerPage;
-    const pageItems = items.slice(start, end);
 
     // If no items, maybe show a placeholder text?
     if (items.length === 0) {
@@ -725,7 +714,7 @@ function renderMenu() {
         return;
     }
 
-    pageItems.forEach(item => {
+    items.forEach(item => {
         const div = document.createElement('div');
         const isSelected = currentOutfit[currentCategory] === item.id;
         div.className = `costume-item ${isSelected ? 'selected' : ''}`;
@@ -864,40 +853,52 @@ function triggerSmokeEffect() {
     }
 }
 
-// Pagination Controls
-prevBtn.addEventListener('click', () => {
-    const items = wardrobe[currentCategory] || [];
-    const maxPage = Math.ceil(items.length / itemsPerPage) - 1;
 
-    if (currentPage > 0) {
-        currentPage--;
-    } else {
-        currentPage = maxPage > 0 ? maxPage : 0;
-    }
-    renderMenu();
-    updatePaginationButtons();
+
+// PC Drag Scroll Logic
+let isDown = false;
+let startX;
+let scrollLeft;
+let isDragging = false;
+
+costumeGrid.addEventListener('mousedown', (e) => {
+    isDown = true;
+    isDragging = false;
+    startX = e.pageX - costumeGrid.offsetLeft;
+    scrollLeft = costumeGrid.scrollLeft;
 });
 
-nextBtn.addEventListener('click', () => {
-    const items = wardrobe[currentCategory] || [];
-    const maxPage = Math.ceil(items.length / itemsPerPage) - 1;
-
-    if ((currentPage + 1) * itemsPerPage < items.length) {
-        currentPage++;
-    } else {
-        currentPage = 0;
-    }
-    renderMenu();
-    updatePaginationButtons();
+costumeGrid.addEventListener('mouseleave', () => {
+    isDown = false;
+    isDragging = false;
+    costumeGrid.classList.remove('active');
 });
 
-function updatePaginationButtons() {
-    const items = wardrobe[currentCategory] || [];
-    const isSinglePage = items.length <= itemsPerPage;
+costumeGrid.addEventListener('mouseup', () => {
+    isDown = false;
+    // Delay removing active to ensure click event is blocked if we were dragging
+    setTimeout(() => {
+        isDragging = false;
+        costumeGrid.classList.remove('active');
+    }, 50);
+});
 
-    prevBtn.disabled = isSinglePage;
-    nextBtn.disabled = isSinglePage;
-}
+costumeGrid.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - costumeGrid.offsetLeft;
+    const walk = (x - startX) * 2; // scroll-fast
+
+    // Only treat as drag if moved more than 5px
+    if (!isDragging && Math.abs(x - startX) > 5) {
+        isDragging = true;
+        costumeGrid.classList.add('active');
+    }
+
+    if (isDragging) {
+        costumeGrid.scrollLeft = scrollLeft - walk;
+    }
+});
 
 // Speech Bubble
 let speechTimeout;
